@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="view-pager-transforms-1.2.32">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.ToxicBakery.viewpager.transforms/view-pager-transforms/1.2.32/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.ToxicBakery.viewpager.transforms/view-pager-transforms/1.2.32/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
