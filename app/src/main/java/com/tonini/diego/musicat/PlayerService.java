@@ -138,6 +138,8 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
         mNotificationManager.cancel(15);
         showBubble(false);
         switchOnShake(false);
+
+
     }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {

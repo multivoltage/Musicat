@@ -10,7 +10,7 @@
             android:title="Mostra notifica"
             android:summary="Disabilitando questa funziona non verrà visualizzata alcuna notifica"
             android:defaultValue="true"
-
+            android:layout="@layout/custom_preferece_layout"
             android:persistent="true"/>
 
         <CheckBoxPreference
@@ -58,12 +58,14 @@
             android:key="KEY_PREF_THEME"
             android:persistent="true"
             android:defaultValue="10"
+            android:layout="@layout/custom_preferece_layout"
             android:entryValues="@array/theme_values"
             android:entries="@array/themes_entries" />
 
         <com.tonini.diego.musicat.dashclockpicker.ColorPickerPreference
             android:defaultValue="@color/ColorPrimary"
             android:key="KEY_PREF_PRIMARY_COLOR"
+            android:layout="@layout/custom_preferece_layout"
             android:persistent="true"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
@@ -74,6 +76,7 @@
 
         <com.tonini.diego.musicat.dashclockpicker.ColorPickerPreference
             android:defaultValue="@color/ColorSecondary"
+            android:layout="@layout/custom_preferece_layout"
             android:key="KEY_PREF_SECONDARY_COLOR"
             android:persistent="true"
             android:negativeButtonText="@null"

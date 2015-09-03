@@ -1,5 +1,7 @@
 package com.tonini.diego.musicat.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,6 +28,24 @@ public class MyPreferencesFragment extends PreferenceFragment {
     public static final String SHARED_PREF_KEY_COLOR_SECONDARY = "SHARED_PREF_KEY_COLOR_SECONDARY";
     public static final String SHARED_PREF_KEY_TEXT_COLOR= "SHARED_PREF_KEY_TEXT_COLOR";
 
+    OnAspectChaned mCallback;
+    Context mContext;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        mContext = activity;
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (OnAspectChaned) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnAspectChaned");
+        }
+    }
+
 
     @Override
     public void onCreate(final Bundle savedInstanceState){
@@ -43,16 +63,28 @@ public class MyPreferencesFragment extends PreferenceFragment {
             if(key.equals(Const.SHARED_PREF_KEY_SHAKE_PHONE)){
                 SwitchPreference switchShake = (SwitchPreference) findPreference(key);
                 boolean canShake = switchShake.isChecked();
-                getActivity().startService(new Intent(getActivity(), PlayerService.class).setAction(canShake ? Const.ACTION_SHAKE_ON : Const.ACTION_SHAKE_OFF));
+                mContext.startService(new Intent(mContext, PlayerService.class).setAction(canShake ? Const.ACTION_SHAKE_ON : Const.ACTION_SHAKE_OFF));
                 Toast.makeText(getActivity(),canShake ? "shake enable" : "shake disable",Toast.LENGTH_SHORT).show();
             } else if (key.equals(Const.SHARED_PREF_KEY_SHOW_BUBBLE)) {
                 CheckBoxPreference switchShake = (CheckBoxPreference) findPreference(key);
                 boolean showBubble = switchShake.isChecked();
-                getActivity().startService(new Intent(getActivity(), PlayerService.class).setAction(showBubble ? Const.ACTION_BUBBLE_ON : Const.ACTION_BUBBLE_OFF));
+                mContext.startService(new Intent(mContext, PlayerService.class).setAction(showBubble ? Const.ACTION_BUBBLE_ON : Const.ACTION_BUBBLE_OFF));
                 Toast.makeText(getActivity(),showBubble ? "bubble enable" : "buble disable",Toast.LENGTH_SHORT).show();
+            } else if(key.equals(Const.KEY_PREF_PRIMARY_COLOR)){
+                // notify activity to refresh toolba
+                mCallback.notifyPrimaryColorSelected();
+            } else if(key.equals(Const.KEY_PREF_SECONDARY_COLOR)){
+                mCallback.notifySecondaryColorSelected();
+            } else if(key.equals(Const.KEY_PREF_THEME)){
+                mCallback.notifyThemeChanged();
             }
         }
     };
 
+    public interface  OnAspectChaned {
+        void notifyPrimaryColorSelected();
+        void notifyThemeChanged();
+        void notifySecondaryColorSelected();
+    }
 
 }

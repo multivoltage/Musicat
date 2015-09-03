@@ -1,13 +1,9 @@
 package com.tonini.diego.musicat;
 
-import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,9 +11,10 @@ import android.view.WindowManager;
 
 import com.tonini.diego.musicat.fragments.MyPreferencesFragment;
 
-import org.apache.log4j.chainsaw.Main;
+public class PreferencesActivity extends AppCompatActivity implements MyPreferencesFragment.OnAspectChaned{
 
-public class PreferencesActivity extends AppCompatActivity {
+    private Toolbar toolbar;
+    public static final int RESULT_EDIT_ASPECT_OK = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,31 +25,22 @@ public class PreferencesActivity extends AppCompatActivity {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new MyPreferencesFragment()).commit();
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
         // this method show home button in toolbar
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
-
-        toolbar.setTitle("Settings");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
+        initColors();
 
-        int colorPrimary = Utils.getPrimaryColor(getApplicationContext());
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().setStatusBarColor(Utils.getDarkerColor(colorPrimary, 0.7f));
-        }
-        // this method colors only acion bar (no tabs)
-        toolbar.setBackgroundColor(colorPrimary);
     }
 
     @Override
@@ -71,9 +59,32 @@ public class PreferencesActivity extends AppCompatActivity {
         setResult(RESULT_OK);
         super.onDestroy();
     }
+
+    private void initColors(){
+        int colorPrimary = Utils.getPrimaryColor(getApplicationContext());
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().setStatusBarColor(Utils.getDarkerColor(colorPrimary, 0.7f));
+        }
+        // this method colors only acion bar (no tabs)
+        toolbar.setBackgroundColor(colorPrimary);
+    }
+
+
     @Override
-    public void onBackPressed(){
-        setResult(MainActivity.RESULT_OK);
-        super.onBackPressed();
+    public void notifyPrimaryColorSelected() {
+        initColors();
+        setResult(RESULT_EDIT_ASPECT_OK);
+    }
+    @Override
+    public void notifySecondaryColorSelected() {
+        setResult(RESULT_EDIT_ASPECT_OK);
+    }
+
+    @Override
+    public void notifyThemeChanged() {
+        setResult(RESULT_EDIT_ASPECT_OK);
     }
 }

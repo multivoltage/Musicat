@@ -24,7 +24,8 @@
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:singleLine="true" android:textAppearance="?android:attr/textAppearanceLarge"
             android:ellipsize="marquee" android:fadingEdge="horizontal"
-            android:textColor="#FF0000" />
+            android:textSize="15sp"
+            android:textColor="@android:color/primary_text_light" />
 
         <TextView android:id="@+android:id/summary"
             android:layout_width="wrap_content" android:layout_height="wrap_content"

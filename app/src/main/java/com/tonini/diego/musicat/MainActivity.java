@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,12 +14,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.melnykov.fab.FloatingActionButton;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.tonini.diego.musicat.entity.RotatePageTransformer;
@@ -51,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
     private FloatingActionButton fabAddlaylist;
     List<Fragment> fragments;
 
+    private Tracker mTracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +77,36 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         // this method color the notification bar (which muts be +200 dark)
         initColors();
         initTheme();
+
+        Tracker t = ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
+        t.setScreenName("com.musicat.MainActivity");
+        t.setScreenName("Home");
+        t.send(new HitBuilders.AppViewBuilder().build());
+
+
+
+        new CountDownTimer(6000,1000){
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                s.concat(null);
+            }
+        }.start();
+    }
+    String s = null;
+    @Override
+    public void onStart(){
+        super.onStart();
+        GoogleAnalytics.getInstance(MainActivity.this).reportActivityStart(this);
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        GoogleAnalytics.getInstance(MainActivity.this).reportActivityStop(this);
     }
 
     private void initView(){
@@ -287,12 +324,15 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.i(MainActivity.TAG, "result catch :"+resultCode);
         // Check which request we're responding to
         if (requestCode == SETTING_REQUEST) {
             // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                initColors();
-                initTheme();
+            if (resultCode == PreferencesActivity.RESULT_EDIT_ASPECT_OK) {
+                finish();
+                startActivity(new Intent(this, MainActivity.class));
+
             }
         }
     }

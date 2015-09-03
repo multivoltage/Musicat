@@ -1,6 +1,7 @@
 package com.tonini.diego.musicat.fragments;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -108,10 +109,9 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
         v.findViewById(R.id.relContainerHeader).setBackgroundColor(colorPrimary);
         v.findViewById(R.id.linearLayoutFooterControls).setBackgroundColor(colorPrimary);
 
-
         return v;
     }
-
+    Rect rect;
     public void updateDataForNewTrack(int duration){
         // duration in millisec, -1 if not available
         seekBar.setMax(duration);           // with new track
@@ -304,6 +304,10 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
                         .into(imageViewHeader);
             }
         }.execute();
+    }
+
+    private void initColor(){
+        // init pressed color for image and button
     }
 
 }

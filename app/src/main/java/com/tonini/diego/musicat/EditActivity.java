@@ -37,16 +37,6 @@ import org.apache.http.Header;
 import org.cmc.music.metadata.MusicMetadata;
 import org.cmc.music.metadata.MusicMetadataSet;
 import org.cmc.music.myid3.MyID3;
-import org.jaudiotagger.audio.AudioFile;
-import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.audio.mp3.MP3File;
-import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.TagOptionSingleton;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -195,48 +185,6 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                 Snackbar.make(scrollView,"There was an errore while editing",Snackbar.LENGTH_SHORT).show();
             }
         }
-    }
-
-    private void saveNewMetadataJaudioTagger(){
-        String newTitle = editTitle.getText().toString().length()==0 ? editTitle.getHint().toString() : editTitle.getText().toString();
-        String newAlbum = editAlbum.getText().toString().length()==0 ? editAlbum.getHint().toString() : editAlbum.getText().toString();
-        String newArtist = editArtist.getText().toString().length()==0 ? editArtist.getHint().toString() : editArtist.getText().toString();
-
-        TagOptionSingleton.getInstance().setAndroid(true);
-        AudioFile audioFile = null;
-        Mp3File a;
-        try {
-            audioFile = AudioFileIO.read(new File(track.getTrackUri().toString()));
-            if(audioFile!=null){
-                Tag newTag = audioFile.getTag();
-
-                newTag.setField(FieldKey.TITLE,newTitle);
-                newTag.setField(FieldKey.ALBUM,newAlbum);
-                newTag.setField(FieldKey.ARTIST,newArtist);
-
-                audioFile.commit();
-                scan.connect();
-            }
-
-        } catch (Exception e) {
-            Log.i(EditActivity.TAG, e.toString());
-        }
-
-        MP3File song = null;
-        try {
-            song = new MP3File(new File(track.getTrackUri().toString()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (TagException e) {
-            e.printStackTrace();
-        } catch (ReadOnlyFileException e) {
-            e.printStackTrace();
-        } catch (InvalidAudioFrameException e) {
-            e.printStackTrace();
-        }
-
-
-
     }
 
     private void saveNewMetadataMp3Agic(){
