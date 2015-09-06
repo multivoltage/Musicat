@@ -3,9 +3,9 @@ package com.tonini.diego.musicat;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Environment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -21,8 +21,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.melnykov.fab.FloatingActionButton;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -63,13 +64,13 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(!isMyServiceRunning(PlayerService.class)){
-            startService(new Intent(this,PlayerService.class));
+        if (!isMyServiceRunning(PlayerService.class)) {
+            startService(new Intent(this, PlayerService.class));
         }
 
         /* FOLDER USED TO SAVE DOWNLOADED ART COVER */
-        File covers = new File(Environment.getExternalStorageDirectory().getPath()+File.separator+"Musicat"+File.separator+"Covers");
-        if(!covers.exists())
+        File covers = new File(Environment.getExternalStorageDirectory().getPath() + File.separator + "Musicat" + File.separator + "Covers");
+        if (!covers.exists())
             covers.mkdirs();
 
         initView();
@@ -78,34 +79,33 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         initColors();
         initTheme();
 
-        Tracker t = ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
+        /*Tracker t = ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
         t.setScreenName("com.musicat.MainActivity");
         t.setScreenName("Home");
         t.send(new HitBuilders.AppViewBuilder().build());
+*/
+        GoogleAnalytics.getInstance(MainActivity.this).reportActivityStart(this);
 
-
-
-        new CountDownTimer(6000,1000){
-            @Override
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            @Override
-            public void onFinish() {
-                s.concat(null);
-            }
-        }.start();
+        if(Utils.newVersion(this)){
+            new MaterialDialog.Builder(this)
+                    .title("New version")
+                    .content("- Added web server player, see settings\n\n-Now bubble became hidden when user stay in this app\n\n-Add github url and help me\n\n- Fixed some text\n\n- Fixed not update theme\n\n- Correct clear grey text color on white background")
+                    .theme(Theme.LIGHT)
+                    .cancelable(false)
+                     .positiveText("Go")
+                    .show();
+        }
+        getSharedPreferences(Const.MY_PREFERENCES,MODE_PRIVATE).edit().putBoolean(Const.KEY_SHOW_NEWS,false).commit();
     }
-    String s = null;
+
     @Override
     public void onStart(){
         super.onStart();
-        GoogleAnalytics.getInstance(MainActivity.this).reportActivityStart(this);
     }
+
     @Override
-    public void onStop(){
-        super.onStop();
+    public void onDestroy(){
+        super.onDestroy();
         GoogleAnalytics.getInstance(MainActivity.this).reportActivityStop(this);
     }
 
@@ -142,18 +142,6 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         getSupportFragmentManager().beginTransaction().replace(R.id.slideFragment,slideFragment).commit();
         slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_root_layout);
         slidingUpPanelLayout.setPanelSlideListener(this);
-
-        /*Drawer result = new DrawerBuilder(this)
-                .withToolbar(toolbar)
-                .withActivity(this)
-                .withTranslucentNavigationBar(true)
-                .withTranslucentStatusBar(true)
-                .addDrawerItems(
-                        new PrimaryDrawerItem().withName("item home"),
-                        new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName("setting")
-                ).build();*/
-
 
     }
 
@@ -245,6 +233,12 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
             case R.id.action_scan :
 
                 break;
+            case R.id.action_git :
+                String url = "https://github.com/multivoltage/Musicat";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -310,7 +304,7 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
     }
     @Override
     public void onResume(){
-        if(!isMyServiceRunning(PlayerService.class)){
+        if(isMyServiceRunning(PlayerService.class)){
             if(Utils.showBubble(this))
                 startService(new Intent(this, PlayerService.class).setAction(Const.ACTION_BUBBLE_OFF));
         }

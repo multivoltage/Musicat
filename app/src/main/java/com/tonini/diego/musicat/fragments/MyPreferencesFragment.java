@@ -70,6 +70,16 @@ public class MyPreferencesFragment extends PreferenceFragment {
                 boolean showBubble = switchShake.isChecked();
                 mContext.startService(new Intent(mContext, PlayerService.class).setAction(showBubble ? Const.ACTION_BUBBLE_ON : Const.ACTION_BUBBLE_OFF));
                 Toast.makeText(getActivity(),showBubble ? "bubble enable" : "buble disable",Toast.LENGTH_SHORT).show();
+            } else if(key.equals(Const.SHARED_PREF_KEY_SHOW_NOTICE)){
+                CheckBoxPreference checkBoxPreference = (CheckBoxPreference) findPreference(key);
+                boolean canShow = checkBoxPreference.isChecked();
+                mContext.startService(new Intent(mContext,PlayerService.class).setAction(canShow ? Const.ACTION_SHOW_NOTICE : Const.ACTION_HIDE_NOTICE));
+            } else if(key.equals(Const.SHARED_PREF_KEY_SERVER)){
+
+                SwitchPreference switchPreference = (SwitchPreference) findPreference(key);
+                boolean canSwitchOn = switchPreference.isChecked();
+                mContext.startService(new Intent(mContext,PlayerService.class).setAction(canSwitchOn ? Const.ACTION_SERVER_ON : Const.ACTION_SERVER_OFF));
+
             } else if(key.equals(Const.KEY_PREF_PRIMARY_COLOR)){
                 // notify activity to refresh toolba
                 mCallback.notifyPrimaryColorSelected();
@@ -86,5 +96,6 @@ public class MyPreferencesFragment extends PreferenceFragment {
         void notifyThemeChanged();
         void notifySecondaryColorSelected();
     }
+
 
 }

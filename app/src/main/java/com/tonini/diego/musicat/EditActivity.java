@@ -59,8 +59,6 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-
-
         track = getIntent().getParcelableExtra(Const.KEY_EDIT_TRACK);
 
         imgCover = (ImageView) findViewById(R.id.imgCover);
@@ -238,7 +236,6 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
                     Utils.updateArtWorkMediaStore(getApplicationContext(),track.getArtUri(),track.getAlbumId(),new File(track.getTrackUri().toString()).getAbsolutePath());
 
-
                     tag.setAlbumImage(arrayImageFile, "image/jpeg");
                 } else {
                     Log.i(EditActivity.TAG,"want to update image also with null file");
@@ -342,7 +339,5 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
-
 
 }

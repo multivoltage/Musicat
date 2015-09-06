@@ -33,6 +33,7 @@ import com.tonini.diego.musicat.custom.FloatingBubble;
 import com.tonini.diego.musicat.custom.OnSwipeTouchListener;
 import com.tonini.diego.musicat.entity.AudioFocusHelper;
 import com.tonini.diego.musicat.entity.BasicPlayer;
+import com.tonini.diego.musicat.entity.HelloServer;
 import com.tonini.diego.musicat.entity.LoadImageFileAsynk;
 import com.tonini.diego.musicat.entity.MediaButtonHelper;
 import com.tonini.diego.musicat.entity.MusicFocusable;
@@ -47,7 +48,7 @@ import java.io.File;
 
 import de.greenrobot.event.EventBus;
 
-public class PlayerService extends Service implements MusicFocusable, BasicPlayer.OnCompleteCallBack{
+public class PlayerService extends Service implements MusicFocusable, BasicPlayer.OnCompleteCallBack {
 
     private WindowManager windowManager;
     private FloatingBubble floatingFaceBubble;
@@ -62,7 +63,7 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
     private SensorManager mSensorManager;
     private ShakeEventListener mShakeEventListener;
     private MediaReceiver mediaReceiver;
-
+    private HelloServer server = null;
     public PlayerService() {
     }
 
@@ -91,44 +92,25 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
         initBubble();
         showBubble(Utils.showBubble(getApplicationContext()));
 
-        /*File imageFile = new File(Environment.getExternalStorageDirectory().getPath()+File.separator+"Musicat"+File.separator+"Covers"+File.separator+"Avicii - Feeling Good.mus");
-
-        Mp3File mp3file = null;
-        try {
-            Log.i(MainActivity.TAG,"edit: "+getCurrentTrack().getTitle());
-            mp3file = new Mp3File(getCurrentTrack().getTrackUri().toString());
-
-            if(mp3file.hasId3v2Tag()){
-                Log.i(MainActivity.TAG, "edit id3tagv2");
-                ID3v2 tag = mp3file.getId3v2Tag();
-                tag.setAlbum("aaa album");
-                mp3file.setId3v2Tag(tag);
-                //mp3file.save(Environment.getExternalStorageDirectory().getPath()+File.separator+"Music"+File.separator+"nuova canzone.mp3");
-            }
-        } catch (Exception e) {
-            Log.i(MainActivity.TAG,e.toString());
-        }*/
-
-        /*Toast.makeText(this,"Open browser to: "+Utils.wifiIpAddress(this),Toast.LENGTH_LONG).show();
-        MyNanoHTTPD server = new MyNanoHTTPD(8080,player.getTracks(),player.getIndexOfCurrent());
-        try {
-            server.start();
-        } catch(IOException ioe) {
-            Log.w("Httpd", "The server could not start: "+ioe.toString());
-        }
-        Log.w("Httpd", "Web server initialized.");*/
-
-
+        server = new HelloServer(player.getTracks());
         super.onCreate();
     }
 
-    /*@Override
-  public boolean onUnbind(Intent intent) {
-      player.shutDown();
-      mNotificationManager.cancelAll();
-      mSensorManager.unregisterListener(mShakeEventListener);
-      return super.onUnbind(intent);
-  }*/
+    private void switchOnServer(boolean on){
+        Log.i(MainActivity.TAG,"called switch "+on);
+        if(on)
+            try {
+                server.start();
+                Toast.makeText(this,"Open browser to: "+Utils.wifiIpAddress(this)+ "on port 8080",Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+            }
+        else
+            try {
+                server.stop();
+                Toast.makeText(this,"Server stopped",Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+            }
+    }
 
     @Override
     public void onDestroy(){
@@ -138,7 +120,6 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
         mNotificationManager.cancel(15);
         showBubble(false);
         switchOnShake(false);
-
 
     }
     @Override
@@ -187,6 +168,12 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
                     break;
                 case Const.ACTION_DISMISS:
                     stopSelf();
+                    break;
+                case Const.ACTION_SERVER_ON:
+                    switchOnServer(true);
+                    break;
+                case Const.ACTION_SERVER_OFF:
+                    switchOnServer(false);
                     break;
                 case "android.intent.action.HEADSET_PLUG":
                     if (intent.getIntExtra("state", -1) == 0)
@@ -264,7 +251,11 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
                 .build();
 
         mNotificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(15, mNotification);
+
+        if(Utils.canShowNotice(this))
+            mNotificationManager.notify(15, mNotification);
+        else
+            mNotificationManager.cancel(15);
     }
 
     public boolean isPlaying(){
@@ -536,14 +527,19 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
 
     }
     private void showBubble(boolean show){
+        Log.i(MainActivity.TAG,"called showBubble "+show);
         if(show){
             try {
                 windowManager.addView(floatingFaceBubble, myParams);
-            } catch (Exception e){}
+            } catch (Exception e){
+                Log.e(MainActivity.TAG,e.toString());
+            }
         } else {
             try {
                 windowManager.removeView(floatingFaceBubble);
-            } catch (Exception e){}
+            } catch (Exception e){
+                Log.e(MainActivity.TAG,e.toString());
+            }
         }
     }
     private void updateBubble(){
@@ -601,8 +597,6 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
             return false;
         }
     };
-
-
 
 
 }

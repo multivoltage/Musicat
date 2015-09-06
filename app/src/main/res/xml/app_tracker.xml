@@ -18,7 +18,7 @@
     <bool name="ga_anonymizeIp">true</bool>
     <bool name="ga_dryRun">false</bool>
 
-    <string name="ga_sampleFrequency">100.0</string>
+
 
     <integer name="ga_sessionTimeout">-1</integer>
 

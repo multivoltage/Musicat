@@ -3,8 +3,6 @@ package com.tonini.diego.musicat.entity;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
-import com.google.common.io.Files;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,12 +17,10 @@ public class MyNanoHTTPD extends NanoHTTPD {
 
     public static final String TEXT_404 = "404 File Not Found";
     public List<Track> mTracks;
-    private Track mCurrentTrack;
 
-    public MyNanoHTTPD(int port,List<Track> tracks,int currentTrack){
+    public MyNanoHTTPD(int port,List<Track> tracks){
         this(port);
         mTracks = tracks;
-        mCurrentTrack = mTracks.get(currentTrack);
     }
     public MyNanoHTTPD(String hostname, int port) {
         super(hostname, port);
@@ -37,19 +33,30 @@ public class MyNanoHTTPD extends NanoHTTPD {
     @Override
     public Response serve(IHTTPSession arg0) {
 
-        if(arg0.getParms().get("mode").equals("play")){
-            // return mp3.... without dot
-            int index = Integer.parseInt(arg0.getParms().get("pos"));
-         File videoFile = new File(mTracks.get(index).getTrackUri().toString());
-        try {
-            FileInputStream fis = new FileInputStream(videoFile);
-            return new Response(Response.Status.OK, MimeTypeMap.getSingleton().getMimeTypeFromExtension(Files.getFileExtension(videoFile.getPath())),fis);
-        } catch (FileNotFoundException e) {
-            Log.e("Httpd",e.toString());
+        Log.w("Httpd","request uri: "+arg0.getUri());
+        for(String key : arg0.getParms().keySet()){
+            Log.w("Httpd","param: "+key+", value: "+arg0.getParms().get(key));
         }
 
+        if(arg0.getUri().equals("/")) {
+            return new Response(Response.Status.OK, "text/html", responceHome());
         }
-        return new Response(Response.Status.OK, "text/html", responceHome());
+        else if(arg0.getUri().contains("play")){
+
+            int index = Integer.parseInt(arg0.getParms().get("pos"));
+            Log.w("Httpd", "want to play index: "+index);
+            File videoFile = new File(mTracks.get(index).getTrackUri().toString());
+            try {
+                FileInputStream fis = new FileInputStream(videoFile);
+                return new Response(Response.Status.OK,MimeTypeMap.getSingleton().getMimeTypeFromExtension("mp3"),fis);
+                //return new Response(Response.Status.OK, MimeTypeMap.getSingleton().getMimeTypeFromExtension(Files.getFileExtension(videoFile.getPath())),fis);
+            } catch (FileNotFoundException e) {
+                Log.e("Httpd","file not ofund "+e.toString());
+            }
+        }
+
+        // not found
+        return new Response(Response.Status.NOT_FOUND, "text/html", "error");
     }
 
     public String responceHome(){
@@ -255,12 +262,12 @@ public class MyNanoHTTPD extends NanoHTTPD {
     }
 
     private String getTrWithTrack(Track track){
-        return "<tr><td><a href=   \" \\\"index.html?mode=play&pos="+String.valueOf(mTracks.indexOf(track))+"\\\" \"  >"+track.getTitle()+"</a></td><td>"+track.getArtist()+"</td><td>"+track.getAlbum()+"</td></tr>";
+        return "<tr><td><a href=\"play.html?mode=play&pos="+String.valueOf(mTracks.indexOf(track))+"\">"+track.getTitle()+"</a></td><td>"+track.getArtist()+"</td><td>"+track.getAlbum()+"</td></tr>";
     }
     private String getAllTr(){
         String s = "";
         for(Track t : mTracks){
-            Log.i("httpd","concat: "+t.getTitle());
+            //Log.i("httpd","concat: "+t.getTitle());
             s+= getTrWithTrack(t);
         }
         return s;

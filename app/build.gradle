@@ -5,12 +5,15 @@ android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
 
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+    }
     defaultConfig {
         applicationId "com.tonini.diego.musicat"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         multiDexEnabled true
     }
     buildTypes {
@@ -38,6 +41,7 @@ dependencies {
     // pager trasnformation
     compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
     // parallax viewpager // is only a class :)
+
     // autofit layout and texview
     compile 'me.grantland:autofittextview:0.2.+'
     // floatin action button
@@ -71,8 +75,8 @@ dependencies {
     compile 'com.mpatric:mp3agic:0.8.3'
     compile 'de.u-mass:lastfm-java:0.1.2'
     compile files('libs/signpost-core-1.2.1.2.jar')
-    compile files('libs/log4j-1.2.17.jar')
     compile files('libs/MyID3_for_Android.jar')
     compile files('libs/jaudiotagger-2.2.3.jar')
     compile files('libs/universal-image-loader-1.9.4.jar')
+    compile files('libs/jetty-all-7.0.2.v20100331.jar')
 }

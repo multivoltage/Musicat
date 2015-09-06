@@ -4,14 +4,9 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.ImageView;
 
-import com.tonini.diego.musicat.BitmapGenerator;
-import com.tonini.diego.musicat.Const;
 import com.tonini.diego.musicat.MainActivity;
-import com.tonini.diego.musicat.R;
 import com.tonini.diego.musicat.Utils;
-import com.tonini.diego.musicat.yahoo.SignPostTest;
 
 import java.io.File;
 
@@ -28,7 +23,7 @@ public class CoverLoaderAsynk extends AsyncTask<Void,Void,Void> {
         Log.i(MainActivity.TAG,"create CoverLoaderAsynk with "+fileMp3);
     }
 
-    //@Override
+    @Override
     protected Void doInBackground(Void... params) {
 
         Bitmap bitmap = new ID3TagLoader(file).getBitmap();

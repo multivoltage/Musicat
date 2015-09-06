@@ -186,6 +186,18 @@ public class Utils {
         return ipAddressString;
     }
 
+    public static boolean canShowNotice(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Const.SHARED_PREF_KEY_SHOW_NOTICE,true);
+    }
+
+    public static boolean canSwitchOnServer(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Const.SHARED_PREF_KEY_SERVER,true);
+    }
+
+    public static boolean newVersion(Context context){
+        // if there isn' t store it means if the first run an return true
+       return context.getSharedPreferences(Const.MY_PREFERENCES,Context.MODE_PRIVATE).getBoolean(Const.KEY_SHOW_NEWS,true);
+    }
 
     public static void updateArtWorkMediaStore(Context context,Uri sArtworkUri,long album_id,String file){
         ContentResolver res = context.getContentResolver();

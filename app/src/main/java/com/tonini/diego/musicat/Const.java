@@ -21,6 +21,7 @@ public class Const {
     public static final String KEY_PREF_PRIMARY_COLOR = "KEY_PREF_PRIMARY_COLOR";
     public static final String KEY_PREF_SECONDARY_COLOR = "KEY_PREF_SECONDARY_COLOR";
     public static final String KEY_PREF_THEME = "KEY_PREF_THEME";
+    public static final String KEY_SHOW_NEWS = "KEY_SHOW_NEWS";
 
     // EXTRA KEY
     public static final String KEY_SELECTED_TRACK = "KEY_SELECTED_TRACK";
@@ -31,6 +32,8 @@ public class Const {
     // SETTING FRAGMENT
     public static final String SHARED_PREF_KEY_SHAKE_PHONE = "SHARED_PREF_KEY_SHAKE_PHONE";
     public static final String SHARED_PREF_KEY_SHOW_BUBBLE = "SHARED_PREF_KEY_SHOW_BUBBLE";
+    public static final String SHARED_PREF_KEY_SHOW_NOTICE = "SHARED_PREF_KEY_SHOW_CONTROLS";
+    public static final String SHARED_PREF_KEY_SERVER = "SHARED_PREF_KEY_SERVER";
 
     // ACTIONS
     public static final String ACTION_PLAY_TRACK = "com.tonini.diego.musicat.action.PLAY_TRACK"; // used from adapter to play specific track selected
@@ -48,6 +51,10 @@ public class Const {
     public static final String ACTION_BUBBLE_OFF = "com.tonini.diego.musicat.action.ACTION_BUBBLE_OFF";
     public static final String ACTION_ADD_TO_QUEUE = "ACTION_ADD_TO_QUEUE";
     public static final String ACTION_REQUEST_STATE_PLAYING = "ACTION_REQUEST_STATE_PLAYING";
+    public static final String ACTION_SHOW_NOTICE = "ACTION_SHOW_NOTICE";
+    public static final String ACTION_HIDE_NOTICE = "ACTION_HIDE_NOTICE";
+    public static final String ACTION_SERVER_ON = "ACTION_SERVER_ON";
+    public static final String ACTION_SERVER_OFF = "ACTION_SERVER_OFF";
 
     // EXTRA INTENT
     public static final String EXTRA_KEY_SKEEP_TO = "com.tonini.diego.musicat.extra.SKEEP_TO";
