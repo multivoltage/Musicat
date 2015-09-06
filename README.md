@@ -8,6 +8,7 @@ Musicat is a simple android music player with some feautures:
   - Customize with dark or light theme, and set different colors
   - Set up a countdown (coming soon)
   - Set a bubble on screen to control music player (Facebook like)
+  - Minimal music player web server to listen track in LAN
   
 Musica will be OPEN SOURCE for at least 100 year, so please, help me to improve app and fork your copy for free.
 ### Version
