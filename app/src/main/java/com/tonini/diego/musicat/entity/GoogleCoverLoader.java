@@ -7,6 +7,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.tonini.diego.musicat.Const;
+import com.tonini.diego.musicat.MainActivity;
 import com.tonini.diego.musicat.gcs.Item;
 import com.tonini.diego.musicat.gcs.Result;
 
@@ -66,15 +67,13 @@ public class GoogleCoverLoader {
                             }
                         });
                         urlImage = list.get(0).getLink();
-                        Log.i(CoverLoaderAsynk.TAG_COVER,"for query: "+q+", urlImage: "+urlImage);
                     }
                 }
             }
         } catch (IOException e) {
-            Log.i(CoverLoaderAsynk.TAG_COVER,"getUrlImage(): "+e.toString());
+            Log.i(MainActivity.TAG,"getUrlImage(): "+e.toString());
         }
 
-        Log.i(CoverLoaderAsynk.TAG_COVER,"getUrlImage() for image "+q+", url: "+urlImage);
         return list;
     }
 

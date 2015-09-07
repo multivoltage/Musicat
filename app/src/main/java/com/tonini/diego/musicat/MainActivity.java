@@ -79,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         initColors();
         initTheme();
 
+
+
         /*Tracker t = ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
         t.setScreenName("com.musicat.MainActivity");
         t.setScreenName("Home");
