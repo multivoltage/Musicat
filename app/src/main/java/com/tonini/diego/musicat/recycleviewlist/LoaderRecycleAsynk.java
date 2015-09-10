@@ -3,7 +3,6 @@ package com.tonini.diego.musicat.recycleviewlist;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,7 +26,7 @@ import java.util.Set;
 /**
  * Created by Diego on 03/08/2015.
  */
-public class LoaderRecycleAsynk<I> extends AsyncTask<Void,Void,List<I>> {
+public class LoaderRecycleAsynk<I> /*extends AsyncTask<Void,Void,List<I>>*/ {
 
     public static enum Type {
         TRACK,TRACK_P,ALBUM,ARTIST,PLAYLIST
@@ -67,15 +66,16 @@ public class LoaderRecycleAsynk<I> extends AsyncTask<Void,Void,List<I>> {
     }
 
 
-    @Override
+/*    @Override
     protected void onPreExecute() {
         super.onPreExecute();
         dialog.setMessage("Load tracks...");
         //dialog.show();
     }
+*/
+//    @Override
+    public List<I> doInBackground() {
 
-    @Override
-    protected List<I> doInBackground(Void... params) {
         switch (type){
             case TRACK:      return getTrack();
             case TRACK_P:    return getTrackOfPlayList(mFilterIdForPlayList);
@@ -87,9 +87,9 @@ public class LoaderRecycleAsynk<I> extends AsyncTask<Void,Void,List<I>> {
         // never return null. Maybe forgotn to define correct Type in constructor
         return null;
     }
-    @Override
-    protected void onPostExecute(List<I> result) {
-        super.onPostExecute(result);
+    //@Override
+    public void onPostExecute(List<I> result) {
+        //super.onPostExecute(result);
 
         switch (type){
             case TRACK:

@@ -52,20 +52,11 @@ public class PlayListFragment extends AbstracTrackFragment implements View.OnCli
     }
 
     @Override
-    public void callBackOnVisible(){
-
-        if(!execute){
-            execute = true;
-            l.execute();
-        }
-    }
-
-    @Override
     public void setUpFabClickListener() {
         getActivity().findViewById(R.id.fabBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new LoaderRecycleAsynk<PlayList>(getActivity(), LoaderRecycleAsynk.Type.PLAYLIST, fastScroller, r).execute();
+                //new LoaderRecycleAsynk<PlayList>(getActivity(), LoaderRecycleAsynk.Type.PLAYLIST, fastScroller, r).execute();
                 showBack = false;
                 getActivity().findViewById(R.id.fabBack).setVisibility(View.GONE);
             }
@@ -83,7 +74,7 @@ public class PlayListFragment extends AbstracTrackFragment implements View.OnCli
     public void onEvent(EventCrud event){
         switch (event.getOperation()){
             case Const.CRUD_DELETE_PLAYLIST :
-                new LoaderRecycleAsynk<PlayList>(getActivity(), LoaderRecycleAsynk.Type.PLAYLIST,fastScroller,r).execute();
+                //new LoaderRecycleAsynk<PlayList>(getActivity(), LoaderRecycleAsynk.Type.PLAYLIST,fastScroller,r).execute();
                 break;
         }
     }
@@ -111,7 +102,7 @@ public class PlayListFragment extends AbstracTrackFragment implements View.OnCli
                                 long idNewPlayList = PlayListManager.createPlayList(getActivity(), input.toString(), System.currentTimeMillis());
                                 if (idNewPlayList != -1) {
                                     Snackbar.make(getView(), "Playlist " + input.toString() + " created" + String.valueOf(idNewPlayList), Snackbar.LENGTH_LONG).show();
-                                    new LoaderRecycleAsynk<PlayList>(getActivity(), LoaderRecycleAsynk.Type.PLAYLIST, fastScroller, r).execute();
+                                   // new LoaderRecycleAsynk<PlayList>(getActivity(), LoaderRecycleAsynk.Type.PLAYLIST, fastScroller, r).execute();
                                 } else
                                     Snackbar.make(getView(), "I 'm sorry. Please contact me to fix error instead put negative review" + String.valueOf(idNewPlayList), Snackbar.LENGTH_LONG).show();
                             }

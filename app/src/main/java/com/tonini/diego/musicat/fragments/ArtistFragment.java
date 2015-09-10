@@ -31,23 +31,17 @@ public class ArtistFragment extends AbstracTrackFragment {
         fastScroller = (FastScroller) v.findViewById(R.id.fast_scroller);
 
         l = new LoaderRecycleAsynk<Artist>(getActivity(), LoaderRecycleAsynk.Type.ARTIST,fastScroller,r);
+        //l.execute();
         return v;
     }
 
-    @Override
-    public void callBackOnVisible(){
-        if(!execute){
-            execute = true;
-            l.execute();
-        }
-    }
 
     @Override
     public void setUpFabClickListener() {
         getActivity().findViewById(R.id.fabBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new LoaderRecycleAsynk<Artist>(getActivity(), LoaderRecycleAsynk.Type.ARTIST, fastScroller, r).execute();
+                //new LoaderRecycleAsynk<Artist>(getActivity(), LoaderRecycleAsynk.Type.ARTIST, fastScroller, r).execute();
                 showBack = false;
                 getActivity().findViewById(R.id.fabBack).setVisibility(View.GONE);
             }

@@ -3,6 +3,7 @@ package com.tonini.diego.musicat.recycleviewlist;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.text.InputType;
@@ -108,7 +109,7 @@ public class TrackViewHolder extends AGenericViewHolder<Track> {
                             }
                         }
                     }
-                }.execute();
+                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         } else {
             if(firstTitle!=null)

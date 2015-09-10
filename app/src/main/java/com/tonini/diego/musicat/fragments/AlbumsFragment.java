@@ -15,7 +15,6 @@ import com.tonini.diego.musicat.events.EventTabSelected;
 import com.tonini.diego.musicat.recycleviewlist.FastScroller;
 import com.tonini.diego.musicat.recycleviewlist.LoaderRecycleAsynk;
 
-import static com.tonini.diego.musicat.recycleviewlist.LoaderRecycleAsynk.Type;
 import static com.tonini.diego.musicat.recycleviewlist.LoaderRecycleAsynk.Type.ALBUM;
 
 public class AlbumsFragment extends AbstracTrackFragment {
@@ -29,7 +28,7 @@ public class AlbumsFragment extends AbstracTrackFragment {
         getActivity().findViewById(R.id.fabBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new LoaderRecycleAsynk<Album>(getActivity(), Type.ALBUM, fastScroller, r).execute();
+                //new LoaderRecycleAsynk<Album>(getActivity(), Type.ALBUM, fastScroller, r).execute();
                 showBack = false;
                 getActivity().findViewById(R.id.fabBack).setVisibility(View.GONE);
             }
@@ -45,17 +44,13 @@ public class AlbumsFragment extends AbstracTrackFragment {
         r.setLayoutManager(new LayoutManager(getActivity()));
         fastScroller = (FastScroller) v.findViewById(R.id.fast_scroller);
 
-        l = new LoaderRecycleAsynk<Album>(getActivity(), Type.ALBUM,fastScroller,r);
+        //l = new LoaderRecycleAsynk<Album>(getActivity(), Type.ALBUM,fastScroller,r);
+        //l.execute();
+        //l.onPostExecute(l.doInBackground());
         return v;
     }
 
-    @Override
-    public void callBackOnVisible(){
-        if(!execute){
-            execute = true;
-            l.execute();
-        }
-    }
+
     @Override
     public void onEvent(EventTabSelected event) {
         if(event.getItem()==1){
