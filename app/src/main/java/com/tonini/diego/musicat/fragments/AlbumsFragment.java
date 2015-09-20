@@ -28,7 +28,7 @@ public class AlbumsFragment extends AbstracTrackFragment {
         getActivity().findViewById(R.id.fabBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //new LoaderRecycleAsynk<Album>(getActivity(), Type.ALBUM, fastScroller, r).execute();
+                new LoaderRecycleAsynk<Album>(getActivity(), LoaderRecycleAsynk.Type.ALBUM, fastScroller, r).execute();
                 showBack = false;
                 getActivity().findViewById(R.id.fabBack).setVisibility(View.GONE);
             }
@@ -44,9 +44,8 @@ public class AlbumsFragment extends AbstracTrackFragment {
         r.setLayoutManager(new LayoutManager(getActivity()));
         fastScroller = (FastScroller) v.findViewById(R.id.fast_scroller);
 
-        //l = new LoaderRecycleAsynk<Album>(getActivity(), Type.ALBUM,fastScroller,r);
-        //l.execute();
-        //l.onPostExecute(l.doInBackground());
+        l = new LoaderRecycleAsynk<Album>(getActivity(), LoaderRecycleAsynk.Type.ALBUM,fastScroller,r);
+        l.execute();
         return v;
     }
 

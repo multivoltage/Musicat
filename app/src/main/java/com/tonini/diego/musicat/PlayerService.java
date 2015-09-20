@@ -17,6 +17,7 @@ import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.RemoteControlClient;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
@@ -93,6 +94,7 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
         showBubble(Utils.showBubble(getApplicationContext()));
 
         server = new HelloServer(player.getTracks());
+
         super.onCreate();
     }
 
@@ -114,7 +116,7 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
 
     @Override
     public void onDestroy(){
-        Log.i(MainActivity.TAG,"called on destroy service");
+        Log.i(MainActivity.TAG, "called on destroy service");
         player.shutDown();
         unregisterReceiver(mediaReceiver); // jack in-out
         mNotificationManager.cancel(15);
@@ -126,7 +128,7 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         String action = intent.getAction();
-        //Log.i(MainActivity.TAG, "onStartCommand() with action: " + action);
+        Log.i(MainActivity.TAG, "onStartCommand() with action: " + action);
         if(action!=null){
             switch (action) {
                 case Const.ACTION_PLAY_TRACK:
@@ -162,6 +164,7 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
                     break;
                 case Const.ACTION_ADD_TO_QUEUE :
                     player.addToQueue((Track) intent.getParcelableExtra(Const.KEY_ADD_QUEUE_TRACK));
+                    bus.post(new EventTrack(Const.ACTION_ADD_TO_QUEUE,getClass().getSimpleName()));
                     break;
                 case Const.ACTION_REQUEST_STATE_PLAYING:
                     responseEventPlayState();
@@ -320,7 +323,6 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
                 .withCurrent(getCurrentPosition())
                 .withDuration(getDuration())
                 .withCurrentIndexList(player.getIndexOfCurrent()));
-        // new ReqAsynk(getCurrentTrack()).execute();
     }
 
     public void playPrev(){

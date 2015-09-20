@@ -33,9 +33,7 @@ public class AllSongFragment extends AbstracTrackFragment {
         fastScroller = (FastScroller) v.findViewById(R.id.fast_scroller);
 
         l = new  LoaderRecycleAsynk<Track>(getActivity(), LoaderRecycleAsynk.Type.TRACK, fastScroller, r);
-        List<Track> list = l.doInBackground();
-        l.onPostExecute(list);
-        Toast.makeText(getActivity(),"size:"+l.doInBackground().size(),Toast.LENGTH_SHORT).show();
+        l.execute();
         return v;
     }
 

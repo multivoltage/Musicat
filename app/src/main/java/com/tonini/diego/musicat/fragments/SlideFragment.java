@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +18,17 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.tonini.diego.musicat.Const;
+import com.tonini.diego.musicat.MainActivity;
 import com.tonini.diego.musicat.PlayerService;
 import com.tonini.diego.musicat.R;
 import com.tonini.diego.musicat.Utils;
+import com.tonini.diego.musicat.entity.Image;
 import com.tonini.diego.musicat.entity.LoadImageFileAsynk;
 import com.tonini.diego.musicat.entity.Track;
 import com.tonini.diego.musicat.events.EventTrack;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 
 import de.greenrobot.event.EventBus;
@@ -32,13 +36,13 @@ import de.greenrobot.event.EventBus;
 
 public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeListener ,View.OnClickListener{
 
-    private TextView tvTitleHeader,tvArtistHeader,tvTimePassed,tvTimeTotal;
-    private ImageView imgPrevHeader, imgPPHeader, imgNextHeader,imgPrev, imgPP, imgNext,imgActiveRepeat;
+    private TextView tvTitleHeader,tvArtistHeader,tvTimePassed,tvTimeTotal,tvGoYoutTube,tvGoWikipedia;
+    private ImageView imgPrevHeader, imgPPHeader, imgNextHeader,imgPrev, imgPP, imgNext,imgActiveRepeat,imgIsActiveRepeat;
     private SeekBar seekBar;
     private ImageView circleImageView;
     private ImageView imageViewHeader;
     private int duration, current = 0,delta=0;
-    private Track savedTrack = null;
+    private Track currentTrack = null; // used for wiki and youtube
     private Handler customHandler = new Handler();
     private EventBus bus = EventBus.getDefault();
     private LinearLayout linearControlsHeader;
@@ -69,6 +73,11 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
         tvArtistHeader = (TextView) v.findViewById(R.id.tvArtistHeader);
         tvTimeTotal = (TextView) v.findViewById(R.id.tvTimeTotal);
         tvTimePassed = (TextView) v.findViewById(R.id.tvTimePassed);
+        tvGoYoutTube = (TextView) v.findViewById(R.id.tvGoYoutTube);
+        tvGoWikipedia = (TextView) v.findViewById(R.id.tvGoWikiPedia);
+
+        tvGoWikipedia.setOnClickListener(this);
+        tvGoYoutTube.setOnClickListener(this);
 
         // header
         imgPrevHeader = (ImageView) v.findViewById(R.id.imgPrevHeader);
@@ -79,6 +88,7 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
         imgNext = (ImageView) v.findViewById(R.id.imgNext);
         imgPP = (ImageView) v.findViewById(R.id.imgPP);
         imgActiveRepeat = (ImageView) v.findViewById(R.id.imgActiveRepeat);
+        imgIsActiveRepeat = (ImageView) v.findViewById(R.id.imgIsActiveRepeat);
 
         // header
         imgPrevHeader.setOnClickListener(this);
@@ -89,6 +99,7 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
         imgPP.setOnClickListener(this);
         imgNext.setOnClickListener(this);
         imgActiveRepeat.setOnClickListener(this);
+
 
         circleImageView = (ImageView) v.findViewById(R.id.profile_image);
         imageViewHeader = (ImageView) v.findViewById(R.id.profile_image_header);
@@ -201,6 +212,25 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
             case R.id.imgNext: getActivity().startService(new Intent(getActivity(), PlayerService.class).setAction(Const.ACTION_NEXT));
                 break;
             case R.id.imgActiveRepeat: getActivity().startService(new Intent(getActivity(), PlayerService.class).setAction(Const.ACTION_REPEATING));
+                if(imgIsActiveRepeat.getVisibility()==View.VISIBLE)
+                    imgIsActiveRepeat.setVisibility(View.INVISIBLE);
+                else
+                    imgIsActiveRepeat.setVisibility(View.VISIBLE);
+                break;
+            case R.id.tvGoWikiPedia :
+                try {
+                    String url = java.net.URLEncoder.encode("https://www.google.it/webhp?q=");//+currentTrack.getTitle(), "UTF-8").replace(" ", "+");
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(browserIntent);
+                } catch (UnsupportedEncodingException e) {
+                    Log.e(MainActivity.TAG,e.toString());
+                };
+                break;
+            case R.id.tvGoYoutTube :
+                String url = "http://m.youtube.com/results?q="+currentTrack.getTitle();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(browserIntent);
+                break;
         }
 
     }
@@ -212,6 +242,9 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
 
 
     public void onEvent(EventTrack event) {
+
+        if(event.getTrack()!=null)
+            currentTrack = event.getTrack();
 
         switch (event.getEvent()) {
             case Const.PLAY_EVENT:

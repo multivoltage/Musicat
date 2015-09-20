@@ -167,7 +167,9 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal|center_vertical">
 
+            <!-- for next release wil be visible-->
             <ImageView
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -175,6 +177,17 @@
                 android:src="@mipmap/thumbs_up_minimal"
                 android:padding="20dp"
                 android:adjustViewBounds="true"/>
+
+            <TextView
+                android:id="@+id/tvGoWikiPedia"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:padding="20dp"
+                android:text="W"
+                android:textSize="25sp"
+                android:textColor="@android:color/white"/>
 
             <ImageView
                 android:id="@+id/imgPrev"
@@ -209,7 +222,9 @@
                 android:background="@drawable/pressed"
                 android:src="@mipmap/next_minimal"/>
 
+            <!-- for next release wil be visible-->
             <ImageView
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:padding="20dp"
@@ -218,6 +233,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:src="@mipmap/thumbs_down_minimal"/>
+
+            <TextView
+                android:id="@+id/tvGoYoutTube"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:padding="20dp"
+                android:text="Y"
+                android:textSize="25sp"
+                android:textColor="@android:color/white"/>
 
         </LinearLayout>
 
@@ -240,14 +266,29 @@
         android:layout_marginBottom="54dp" />
 
 
-    <ImageView
-        android:id="@+id/imgActiveRepeat"
-        android:layout_marginBottom="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_repeat_minimal"
+    <RelativeLayout
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_above="@+id/linearLayoutFooterControls"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true" >
 
+        <ImageView
+            android:id="@+id/imgActiveRepeat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_repeat_minimal"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:id="@+id/imgIsActiveRepeat"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:src="@mipmap/ic_action_mark"
+            android:layout_centerHorizontal="true" />
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

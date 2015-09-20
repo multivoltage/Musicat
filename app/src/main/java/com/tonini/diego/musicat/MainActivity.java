@@ -3,6 +3,7 @@ package com.tonini.diego.musicat;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,13 +21,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.melnykov.fab.FloatingActionButton;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.squareup.picasso.Picasso;
 import com.tonini.diego.musicat.entity.RotatePageTransformer;
 import com.tonini.diego.musicat.events.EventSearch;
 import com.tonini.diego.musicat.events.EventTabSelected;
@@ -55,9 +65,7 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
     private SlideFragment slideFragment;
     private SlidingUpPanelLayout slidingUpPanelLayout;
     private FloatingActionButton fabAddlaylist;
-    List<Fragment> fragments;
-
-    private Tracker mTracker;
+    private List<Fragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,13 +87,6 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         initColors();
         initTheme();
 
-
-
-        /*Tracker t = ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
-        t.setScreenName("com.musicat.MainActivity");
-        t.setScreenName("Home");
-        t.send(new HitBuilders.AppViewBuilder().build());
-*/
         GoogleAnalytics.getInstance(MainActivity.this).reportActivityStart(this);
 
         if(Utils.newVersion(this)){
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
                     .show();
         }
         getSharedPreferences(Const.MY_PREFERENCES,MODE_PRIVATE).edit().putBoolean(Const.KEY_SHOW_NEWS,false).commit();
+
     }
 
     @Override
@@ -111,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         GoogleAnalytics.getInstance(MainActivity.this).reportActivityStop(this);
     }
 
-    private void initView(){
+    private void initView() {
         /* CREATE LISTfRAGMENT */
         fragments = new ArrayList<>();
         fragments.add(new AllSongFragment());
@@ -129,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
 
         // SET UP PAGER (NOW ARE EMPTY VIEW)
         pager = (ViewPager) findViewById(R.id.viewPager);
-        mAdapter = new MainPagerAdapter(getSupportFragmentManager(),fragments);
+        mAdapter = new MainPagerAdapter(getSupportFragmentManager(), fragments);
         pager.setAdapter(mAdapter);
         pager.setPageTransformer(true, new RotatePageTransformer());
         pager.setOffscreenPageLimit(4);
@@ -141,9 +143,10 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
 
         /* INSERT SLIDE FRAGMENT (EMPTY VIEW LIKE BEFORE) */
         slideFragment = SlideFragment.newInstance();
-        getSupportFragmentManager().beginTransaction().replace(R.id.slideFragment,slideFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.slideFragment, slideFragment).commit();
         slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_root_layout);
         slidingUpPanelLayout.setPanelSlideListener(this);
+
 
     }
 
@@ -232,9 +235,16 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
             case R.id.action_setting :
                 startActivityForResult(new Intent(MainActivity.this, PreferencesActivity.class), SETTING_REQUEST);
                 break;
-            case R.id.action_scan :
-
+            case R.id.action_contact :
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Musicat - Help");
+                intent.putExtra(Intent.EXTRA_TEXT, "Hi bro... ");
+                Intent mailer = Intent.createChooser(intent, null);
+                intent.setType("message/rfc822");
+                startActivity(mailer);
                 break;
+
             case R.id.action_git :
                 String url = "https://github.com/multivoltage/Musicat";
                 Intent i = new Intent(Intent.ACTION_VIEW);

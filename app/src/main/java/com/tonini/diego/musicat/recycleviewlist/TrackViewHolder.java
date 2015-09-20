@@ -92,7 +92,10 @@ public class TrackViewHolder extends AGenericViewHolder<Track> {
                 load = true;
             }
             if(imageView !=null) {
-                imageView.setImageResource(R.mipmap.unknow_cover);
+
+                // foor the moment I prefer load image from the mediastore.
+                // Only Albunm and Artist have got image
+                /*imageView.setImageResource(R.mipmap.unknow_cover);
                 new LoadImageFileAsynk(new File(track.getTrackUri().toString()), mContext,2) {
                     @Override
                     protected void onPostExecute(File fileImage) {{
@@ -109,7 +112,8 @@ public class TrackViewHolder extends AGenericViewHolder<Track> {
                             }
                         }
                     }
-                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);*/
+                loadPicasso(imageView,track.getArtUri());
             }
         } else {
             if(firstTitle!=null)

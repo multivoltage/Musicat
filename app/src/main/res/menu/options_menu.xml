@@ -8,15 +8,11 @@
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="android.support.v7.widget.SearchView" />
 
-    <item android:id="@+id/action_scan"
-        android:title="scan lib"
-        app:showAsAction="never"/>
-
     <item android:id="@+id/action_rate"
         android:title="rate me"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/action_concact"
+    <item android:id="@+id/action_contact"
         android:title="contact me"
         app:showAsAction="never"/>
 

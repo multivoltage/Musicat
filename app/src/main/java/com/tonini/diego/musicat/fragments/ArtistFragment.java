@@ -31,7 +31,7 @@ public class ArtistFragment extends AbstracTrackFragment {
         fastScroller = (FastScroller) v.findViewById(R.id.fast_scroller);
 
         l = new LoaderRecycleAsynk<Artist>(getActivity(), LoaderRecycleAsynk.Type.ARTIST,fastScroller,r);
-        //l.execute();
+        l.execute();
         return v;
     }
 
@@ -41,7 +41,7 @@ public class ArtistFragment extends AbstracTrackFragment {
         getActivity().findViewById(R.id.fabBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //new LoaderRecycleAsynk<Artist>(getActivity(), LoaderRecycleAsynk.Type.ARTIST, fastScroller, r).execute();
+                new LoaderRecycleAsynk<Artist>(getActivity(), LoaderRecycleAsynk.Type.ARTIST, fastScroller, r).execute();
                 showBack = false;
                 getActivity().findViewById(R.id.fabBack).setVisibility(View.GONE);
             }

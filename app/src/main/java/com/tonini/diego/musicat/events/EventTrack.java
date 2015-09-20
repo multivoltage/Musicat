@@ -17,6 +17,7 @@ public class EventTrack{
     public static final int IS_PLAY = 0;
     private int state;
     private String text = "";
+    private boolean isRepeating = false;
 
     public EventTrack(String event,String className/*boolean isRequest*/){
         this.event = event;
@@ -53,6 +54,15 @@ public class EventTrack{
     public EventTrack withCurrentIndexList(int currentIndexList){
         this.currentIndexList = currentIndexList;
         return this;
+    }
+
+    public EventTrack withRepeating(boolean isRepeating){
+        this.isRepeating = isRepeating;
+        return this;
+    }
+
+    public boolean isRepeating(){
+        return isRepeating;
     }
 
     public String getClassName() {

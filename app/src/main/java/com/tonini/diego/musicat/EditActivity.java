@@ -27,13 +27,14 @@ import com.melnykov.fab.FloatingActionButton;
 import com.mpatric.mp3agic.ID3v1;
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.Mp3File;
+import com.squareup.okhttp.Headers;
 import com.squareup.picasso.Picasso;
 import com.tonini.diego.musicat.entity.GoogleCoverLoader;
 import com.tonini.diego.musicat.entity.ImageWebAdapterDialog;
 import com.tonini.diego.musicat.entity.Track;
 import com.tonini.diego.musicat.gcs.Item;
-
 import org.apache.http.Header;
+
 import org.cmc.music.metadata.MusicMetadata;
 import org.cmc.music.metadata.MusicMetadataSet;
 import org.cmc.music.myid3.MyID3;
@@ -332,6 +333,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                                     }
                                     materialDialog.dismiss();
                                 }
+
                             });
                         }
                     }).show();

@@ -92,17 +92,17 @@ public abstract class AbstracTrackFragment extends Fragment {
                 case ALBUM:
                     LoaderRecycleAsynk<Track> loaderFilteredForAlbum = new LoaderRecycleAsynk<Track>(getActivity(), LoaderRecycleAsynk.Type.TRACK, fastScroller, r);
                     loaderFilteredForAlbum.setFilterForAlbum(event.getAlbum().getName());
-                    //loaderFilteredForAlbum.execute();
+                    loaderFilteredForAlbum.execute();
                     break;
                 case ARTIST:
                     LoaderRecycleAsynk<Track> loaderFilteredForArtist = new LoaderRecycleAsynk<Track>(getActivity(), LoaderRecycleAsynk.Type.TRACK, fastScroller, r);
                     loaderFilteredForArtist.setFilterForArtist(event.getArtist().getName());
-                    //loaderFilteredForArtist.execute();
+                    loaderFilteredForArtist.execute();
                     break;
                 case PLAYLIST:
                     LoaderRecycleAsynk<Track> loaderFilteredForPlayList = new LoaderRecycleAsynk<Track>(getActivity(), LoaderRecycleAsynk.Type.TRACK_P, fastScroller, r);
                     loaderFilteredForPlayList.setFilterForPlayList(event.getPlayList().getId());
-                    //loaderFilteredForPlayList.execute();
+                    loaderFilteredForPlayList.execute();
                     break;
 
             }
