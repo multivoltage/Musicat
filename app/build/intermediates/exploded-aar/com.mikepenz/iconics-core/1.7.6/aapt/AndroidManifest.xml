@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    package="com.mikepenz.iconics.core"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionCode="176"
+    android:versionName="1.7.6" >
+
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="23" />
+
+</manifest>

@@ -1,0 +1,9 @@
+<android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:minHeight="?attr/actionBarSize"
+    android:background="@color/ColorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"/>
+
+<!-- From: file:/home/multivoltage/Documents/repo/Musicat/app/src/main/res/layout/toolbar_layout.xml -->

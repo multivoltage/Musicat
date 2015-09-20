@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="Music Setting">
+
+        <CheckBoxPreference
+            android:key="SHARED_PREF_KEY_SHOW_NOTICE"
+            android:title="Mostra notifics"
+            android:summary="Disabilitando questa funziona non verranna visualizzata la notifica"
+            android:defaultValue="true"
+            android:layout="@layout/custom_preferece_layout"
+            android:persistent="true"/>
+
+        <CheckBoxPreference
+            android:key="SHARED_PREF_KEY_SHOW_BUBBLE"
+            android:title="Mostra bolla"
+            android:summary="Disabilitando questa funziona non verrà visualizzata la bolla fluttuante "
+            android:defaultValue="false"
+            android:layout="@layout/custom_preferece_layout"
+            android:persistent="true"/>
+
+        <CheckBoxPreference
+            android:key="SHARED_PREF_KEY_SHOW_ART"
+            android:title="Mostra cover"
+            android:summary="Disabilitando questa funzione l' immagine dell album non sarà visualizzata nel lockscreen"
+            android:defaultValue="true"
+            android:layout="@layout/custom_preferece_layout"
+            android:persistent="true" />
+
+        <CheckBoxPreference
+            android:key="SHARED_PREF_KEY_JACK_INSERT"
+            android:title="Pause jack-out"
+            android:summary="Disabilitando questa funziona il brano non verrà interrotto se verranno disinserite le cuffie"
+            android:defaultValue="true"
+            android:layout="@layout/custom_preferece_layout"
+            android:persistent="true"/>
+
+        <SwitchPreference
+            android:key="SHARED_PREF_KEY_SHAKE_PHONE"
+            android:title="Shake phone"
+            android:summary="Abilitando questa funzione se viene effettuato uno shake del telefono verrà riprodotto il brano successivo"
+            android:defaultValue="false"
+            android:layout="@layout/custom_preferece_layout"
+            android:persistent="true" />
+
+        <SwitchPreference
+            android:key="SHARED_PREF_KEY_SERVER"
+            android:title="Wer server"
+            android:summary="Abilitando questa funzione puoi ascoltare i brani da qualsiasi dispositivo wifi. Le porte/firewall  devono essere aperte"
+            android:defaultValue="false"
+            android:layout="@layout/custom_preferece_layout"
+            android:persistent="true" />
+
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="Aspect">
+
+        <!-- DEFAULT VALYE FOR THEME IS LIGHT -->
+        <ListPreference
+            android:title="Theme"
+            android:summary="Choose between dark and light theme"
+            android:key="KEY_PREF_THEME"
+            android:persistent="true"
+            android:defaultValue="10"
+            android:layout="@layout/custom_preferece_layout"
+            android:entryValues="@array/theme_values"
+            android:entries="@array/themes_entries" />
+
+        <com.tonini.diego.musicat.dashclockpicker.ColorPickerPreference
+            android:defaultValue="@color/ColorPrimary"
+            android:key="KEY_PREF_PRIMARY_COLOR"
+            android:layout="@layout/custom_preferece_layout"
+            android:persistent="true"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:summary="Chose color primary"
+            android:title="Color Primary"
+            app:cal_itemLayout="@layout/calendar_grid_item_color"
+            app:cal_numColumns="4" />
+
+        <com.tonini.diego.musicat.dashclockpicker.ColorPickerPreference
+            android:defaultValue="@color/ColorSecondary"
+            android:layout="@layout/custom_preferece_layout"
+            android:key="KEY_PREF_SECONDARY_COLOR"
+            android:persistent="true"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:summary="Chose color secondary and make a combo with primary color"
+            android:title="Color secondary"
+            app:cal_itemLayout="@layout/calendar_grid_item_color"
+            app:cal_numColumns="4" />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen><!-- From: file:/home/multivoltage/Documents/repo/Musicat/app/src/main/res/xml/preferences.xml -->

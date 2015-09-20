@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/afollestad/Projects/material-dialogs/library/src/main/res/values-sw720dp/bool.xml -->
+    <eat-comment/>
+    <bool name="md_is_tablet">true</bool>
+    <!-- From: file:/Users/afollestad/Projects/material-dialogs/library/src/main/res/values-sw720dp/dimens.xml -->
+    <eat-comment/>
+    <dimen name="md_default_dialog_width">480dp</dimen>
+</resources>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:paddingRight="15dp">
+
+
+    <TextView
+        android:id="@+id/tvRound"
+        android:layout_height="64dp"
+        android:layout_width="44dp"
+        android:textColor="#fff"
+        android:textSize="24sp"
+        android:layout_margin="10dp"
+        android:text="A"
+        android:background="@drawable/shape_round_textview"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tvRound"
+        android:layout_toEndOf="@+id/tvRound"
+        android:layout_alignBottom="@+id/tvRound"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="5dp">
+
+        <TextView
+            android:id="@+id/tvRowTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:textColor="@color/primary_dark_material_dark"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            android:gravity="bottom"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
+            android:singleLine="true"
+            android:text="title"/>
+
+        <TextView
+            android:id="@+id/tvRowSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:textColor="@color/primary_dark_material_light"
+            android:textSize="10sp"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
+            android:singleLine="true"
+            android:text="artist"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true">
+
+        <ImageButton
+            android:id="@+id/imageViewOver"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/ic_menu_moreoverflow_material"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout><!-- From: file:/home/multivoltage/Documents/repo/Musicat/app/src/main/res/layout/row_tracks_layout_no_img.xml -->

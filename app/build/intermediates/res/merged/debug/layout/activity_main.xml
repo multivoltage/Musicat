@@ -1,0 +1,115 @@
+
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    sothree:umanoPanelHeight="64dp"
+    sothree:umanoShadowHeight="0dp"
+    sothree:umanoParalaxOffset="100dp">
+
+    <!-- SlidingPanel need 1 child (normal layout of view) -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:id="@+id/relMain">
+
+
+        <!--android.support.design.widget.CoordinatorLayout-->
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/coordinatorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true">
+
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/ColorPrimary"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    android:elevation="0dp">
+                </android.support.v7.widget.Toolbar>
+
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/ColorPrimary"
+                    app:tabTextColor="@color/primary_dark_material_light"
+                    app:tabSelectedTextColor="@android:color/white"
+                    app:tabIndicatorColor="@android:color/white"
+                    app:tabTextAppearance="@style/TextAppearance.Design.Tab"
+                    app:tabIndicatorHeight="2dp"/>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+            <com.melnykov.fab.FloatingActionButton
+                android:id="@+id/fabAddPlayList"
+                xmlns:fab="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@mipmap/arrow_left_minimal"
+                android:scaleType="centerInside"
+                fab:fab_colorNormal="@color/ColorPrimary"
+                fab:fab_colorPressed="@color/ColorPrimaryDark"
+                fab:fab_colorRipple="@color/ColorSecondary"
+                android:layout_gravity="right|bottom" />
+
+
+
+        </android.support.design.widget.CoordinatorLayout>
+
+
+
+        <com.melnykov.fab.FloatingActionButton
+            android:visibility="invisible"
+            xmlns:fab="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/fabBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@mipmap/arrow_left_minimal"
+            android:scaleType="centerInside"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            fab:fab_colorNormal="@color/ColorPrimary"
+            fab:fab_colorPressed="@color/ColorPrimaryDark"
+            fab:fab_colorRipple="@color/ColorSecondary"/>
+
+
+    </RelativeLayout>
+
+    <!--  SlidingPanel need second  child (normal layout of slidepanel) -->
+    <FrameLayout
+        android:name="com.tonini.diego.musicat.fragments.SlideFragment"
+        android:id="@+id/slideFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|top"/>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout><!-- From: file:/home/multivoltage/Documents/repo/Musicat/app/src/main/res/layout/activity_main.xml -->

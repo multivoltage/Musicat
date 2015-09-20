@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="150dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/imgDialog"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
+
+</LinearLayout><!-- From: file:/home/multivoltage/Documents/repo/Musicat/app/src/main/res/layout/row_dialog_images.xml -->

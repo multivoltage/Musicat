@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relContainerNotification"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:layout_marginRight="15dp"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/layoutSmallIcon">
+
+        <ImageView
+            android:id="@+id/imgNoticeCover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:padding="0dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/layoutSmallIcon"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <!-- HIDE PREV -->
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/imgNoticePrev"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@mipmap/back_minimal"
+            android:background="@drawable/pressed"
+            android:layout_alignTop="@+id/imgNoticePlayPause"
+            android:layout_toLeftOf="@+id/imgNoticePlayPause"
+            android:layout_toStartOf="@+id/imgNoticePlayPause" />
+
+        <ImageView
+            android:id="@+id/imgNoticePlayPause"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:src="@mipmap/play_minimal_dark"
+            android:background="@drawable/pressed"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/imgNoticeNext"
+            android:layout_toStartOf="@+id/imgNoticeNext" />
+
+        <ImageView
+            android:id="@+id/imgNoticeNext"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:src="@mipmap/next_minimal_dark"
+            android:background="@drawable/pressed"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/imgNoticeDismiss"
+            android:layout_toStartOf="@+id/imgNoticeDismiss" />
+
+        <ImageView
+            android:id="@+id/imgNoticeDismiss"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:src="@mipmap/exit_minimal_dark"
+            android:background="@drawable/pressed"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|left"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/imgNoticePrev"
+            android:id="@+id/linearLayout3"
+            android:layout_toLeftOf="@+id/imgNoticePrev">
+
+
+            <TextView
+                android:id="@+id/tvTitleNotice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unknow title"
+                android:textSize="16sp"
+                android:singleLine="true"
+                android:freezesText="true"
+                android:enabled="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"/>
+
+            <TextView
+                android:id="@+id/tvArtistNotice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unknow title"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout><!-- From: file:/home/multivoltage/Documents/repo/Musicat/app/src/main/res/layout/notification_layout.xml -->
