@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="EqualizerView"><attr format="integer" name="foregroundColor"/><attr format="integer" name="animDuration"/></declare-styleable>
-    <!-- From: file:/Users/claucookie/Documents/Desarrollo/Github/mini-equalizer-library-android/library/src/main/res/values/strings.xml -->
-    <eat-comment/>
-    <string name="app_name">Mini Equalizer Library</string>
-</resources>

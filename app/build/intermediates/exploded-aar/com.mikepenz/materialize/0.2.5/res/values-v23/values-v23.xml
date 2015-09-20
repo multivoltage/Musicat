@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- From: file:/Users/mikepenz/Drive/Development/AndroidLibraries/Materialize/library/src/main/res/values-v23/dimens.xml -->
-    <eat-comment/>
-    <dimen name="tool_bar_top_padding">24dp</dimen>
-</resources>

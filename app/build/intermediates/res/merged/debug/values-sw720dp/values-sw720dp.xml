@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- From: file:/home/multivoltage/Documents/repo/Musicat/app/build/intermediates/exploded-aar/com.afollestad/material-dialogs/0.7.8.1/res/values-sw720dp/values-sw720dp.xml -->
-    <eat-comment/>
-    <bool name="md_is_tablet">true</bool>
-    <dimen name="md_default_dialog_width">480dp</dimen>
-</resources>
