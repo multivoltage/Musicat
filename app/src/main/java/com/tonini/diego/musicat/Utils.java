@@ -139,14 +139,14 @@ public class Utils {
         editor.putInt(Const.KEY_PREF_PRIMARY_COLOR, color);
     }
     public static int getPrimaryColor(Context context){
-        return PreferenceManager.getDefaultSharedPreferences(context).getInt(Const.KEY_PREF_PRIMARY_COLOR, context.getResources().getColor(R.color.ColorPrimary));
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(Const.KEY_PREF_PRIMARY_COLOR, R.color.ColorPrimary);
     }
     public static void saveSecondaryyColor(Context context,int color){
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.putInt(Const.KEY_PREF_SECONDARY_COLOR, color);
     }
     public static int getSecondaryColor(Context context){
-        return PreferenceManager.getDefaultSharedPreferences(context).getInt(Const.KEY_PREF_SECONDARY_COLOR,context.getResources().getColor(R.color.ColorPrimary));
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(Const.KEY_PREF_SECONDARY_COLOR,R.color.ColorPrimary);
     }
     public static int getTheme(Context context){
         int defaultTheme = Const.THEME_LIGHT;
@@ -162,6 +162,10 @@ public class Utils {
         Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
         v.vibrate(ms);
+    }
+
+    public static boolean isSeverOnLastUsage(Context context){
+       return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Const.KEY_SERVER_ON,false);
     }
 
     public static String wifiIpAddress(Context context) {

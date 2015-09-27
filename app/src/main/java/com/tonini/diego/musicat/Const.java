@@ -22,6 +22,7 @@ public class Const {
     public static final String KEY_PREF_SECONDARY_COLOR = "KEY_PREF_SECONDARY_COLOR";
     public static final String KEY_PREF_THEME = "KEY_PREF_THEME";
     public static final String KEY_SHOW_NEWS = "KEY_SHOW_NEWS";
+    public static final String KEY_SERVER_ON = "KEY_SERVER_ON";
 
     // EXTRA KEY
     public static final String KEY_SELECTED_TRACK = "KEY_SELECTED_TRACK";

@@ -30,9 +30,13 @@ import com.afollestad.materialdialogs.Theme;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.melnykov.fab.FloatingActionButton;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -52,12 +56,12 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-public class MainActivity extends AppCompatActivity implements SlidingUpPanelLayout.PanelSlideListener, TabLayout.OnTabSelectedListener{
+public class MainActivity extends AppCompatActivity implements SlidingUpPanelLayout.PanelSlideListener /*TabLayout.OnTabSelectedListener*/{
 
     static final int SETTING_REQUEST = 12;  // The request code
     public static final String TAG = "fucking.TAG";
-    private ViewPager pager;
-    private MainPagerAdapter mAdapter;
+    //private ViewPager pager;
+    // private MainPagerAdapter mAdapter;
     private EventBus bus = EventBus.getDefault();
     private SearchView searchView;
     private Toolbar toolbar;
@@ -65,31 +69,61 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
     private SlideFragment slideFragment;
     private SlidingUpPanelLayout slidingUpPanelLayout;
     private FloatingActionButton fabAddlaylist;
-    private List<Fragment> fragments;
+    //private List<Fragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_drawer);
 
-        if (!isMyServiceRunning(PlayerService.class)) {
+        /*if (!isMyServiceRunning(PlayerService.class)) {
             startService(new Intent(this, PlayerService.class));
-        }
-
-        /* FOLDER USED TO SAVE DOWNLOADED ART COVER */
-        File covers = new File(Environment.getExternalStorageDirectory().getPath() + File.separator + "Musicat" + File.separator + "Covers");
-        if (!covers.exists())
-            covers.mkdirs();
+        }*/
 
         initView();
         // SET-UP COLOR
         // this method color the notification bar (which muts be +200 dark)
-        initColors();
-        initTheme();
+        //initColors();
+        //initTheme();
 
         GoogleAnalytics.getInstance(MainActivity.this).reportActivityStart(this);
 
-        if(Utils.newVersion(this)){
+        ImageView i = new ImageView(this);
+        i.setImageResource(R.mipmap.ic_launcher);
+        Drawer result = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withHeader(i)
+                .addDrawerItems(
+
+                        new DividerDrawerItem(),
+                        new SecondaryDrawerItem().withName("Album"),
+                        new SecondaryDrawerItem().withName("Artist"),
+                        new SecondaryDrawerItem().withName("Playlist")
+                ).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(AdapterView<?> adapterView, View view, int pos, long l, IDrawerItem iDrawerItem) {
+                        switch (pos){
+                            case 0: // All songs
+                                Fragment fsong = AllSongFragment.instantiate(MainActivity.this,"allsong");
+                                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame,fsong).commit();
+                                break;
+                            case 2: // Album
+                                Fragment falbum = AllSongFragment.instantiate(MainActivity.this,"allsong");
+                                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame,falbum).commit();
+                                break;
+                            case 3: // Artist
+                                break;
+                            case 4: // PlayList
+                                break;
+
+                        }
+                        return false;
+                    }
+
+                }).build();
+
+       /* if(Utils.newVersion(this)){
             new MaterialDialog.Builder(this)
                     .title("New version")
                     .content("- Added web server player, see settings\n\n-Now bubble became hidden when user stay in this app\n\n-Add github url and help me\n\n- Fixed some text\n\n- Fixed not update theme\n\n- Correct clear grey text color on white background")
@@ -99,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
                     .show();
         }
         getSharedPreferences(Const.MY_PREFERENCES,MODE_PRIVATE).edit().putBoolean(Const.KEY_SHOW_NEWS,false).commit();
-
+        */
     }
 
     @Override
@@ -110,17 +144,17 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
     @Override
     public void onDestroy(){
         super.onDestroy();
-        GoogleAnalytics.getInstance(MainActivity.this).reportActivityStop(this);
+        //GoogleAnalytics.getInstance(MainActivity.this).reportActivityStop(this);
     }
 
     private void initView() {
         /* CREATE LISTfRAGMENT */
-        fragments = new ArrayList<>();
+    /*    fragments = new ArrayList<>();
         fragments.add(new AllSongFragment());
         fragments.add(new AlbumsFragment());
         fragments.add(new ArtistFragment());
         fragments.add(new PlayListFragment());
-
+     */
         fabAddlaylist = (FloatingActionButton) findViewById(R.id.fabAddPlayList);
         fabAddlaylist.hide();
 
@@ -130,34 +164,34 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
 
         // SET UP PAGER (NOW ARE EMPTY VIEW)
-        pager = (ViewPager) findViewById(R.id.viewPager);
+     /*   pager = (ViewPager) findViewById(R.id.viewPager);
         mAdapter = new MainPagerAdapter(getSupportFragmentManager(), fragments);
         pager.setAdapter(mAdapter);
         pager.setPageTransformer(true, new RotatePageTransformer());
         pager.setOffscreenPageLimit(4);
-
+    */
         /* SET UP TABLAYOUT */
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+    /*    tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(pager);
         tabLayout.setOnTabSelectedListener(this);
-
+    */
         /* INSERT SLIDE FRAGMENT (EMPTY VIEW LIKE BEFORE) */
-        slideFragment = SlideFragment.newInstance();
+     /*   slideFragment = SlideFragment.newInstance();
         getSupportFragmentManager().beginTransaction().replace(R.id.slideFragment, slideFragment).commit();
         slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_root_layout);
         slidingUpPanelLayout.setPanelSlideListener(this);
 
-
+*/
     }
 
     private void initTheme(){
         int theme = Utils.getTheme(getApplicationContext());
         switch (theme){
             case Const.THEME_LIGHT :
-                pager.setBackgroundColor(getResources().getColor(android.R.color.white));
+                //pager.setBackgroundColor(getResources().getColor(android.R.color.white));
                 break;
             case Const.THEME_DARK :
-                pager.setBackgroundColor(getResources().getColor(R.color.grey_700));
+                //pager.setBackgroundColor(getResources().getColor(R.color.grey_700));
                 break;
         }
         fabAddlaylist.setColorNormal(Utils.getPrimaryColor(this));
@@ -255,13 +289,13 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+    /*@Override
     public void onTabSelected(TabLayout.Tab tab) {
 
-        pager.setCurrentItem(tab.getPosition());
-        toolbar.setTitle(mAdapter.getPageTitle(pager.getCurrentItem()));
-        EventBus.getDefault().post(new EventTabSelected(pager.getCurrentItem()));
-        if(pager.getCurrentItem()==0){
+    //    pager.setCurrentItem(tab.getPosition());
+      //  toolbar.setTitle(mAdapter.getPageTitle(pager.getCurrentItem()));
+      //  EventBus.getDefault().post(new EventTabSelected(pager.getCurrentItem()));
+    /*    if(pager.getCurrentItem()==0){
             int visibility = findViewById(R.id.fabBack).getVisibility();
             if(visibility==View.VISIBLE)
                 findViewById(R.id.fabBack).setVisibility(View.INVISIBLE);
@@ -272,12 +306,12 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
             fabAddlaylist.hide(true);
         }
 
-    }
+    }*/
 
-    @Override
+  /*  @Override
     public void onTabUnselected(TabLayout.Tab tab) {}
     @Override
-    public void onTabReselected(TabLayout.Tab tab) {}
+    public void onTabReselected(TabLayout.Tab tab) {}*/
 
     @Override
     public void onPanelSlide(View view, float v) {
@@ -285,12 +319,12 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
 
     @Override
     public void onPanelCollapsed(View view) {
-        slideFragment.notifyPanelCollapsed();
+        //slideFragment.notifyPanelCollapsed();
 
     }
     @Override
     public void onPanelExpanded(View view) {
-        slideFragment.notifyPanelExpanded();
+        //slideFragment.notifyPanelExpanded();
     }
     @Override
     public void onPanelAnchored(View view) {}
@@ -299,33 +333,34 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
 
     @Override
     public void onBackPressed() {
-        if(slidingUpPanelLayout.getPanelState()== SlidingUpPanelLayout.PanelState.COLLAPSED){
+        /*if(slidingUpPanelLayout.getPanelState()== SlidingUpPanelLayout.PanelState.COLLAPSED){
             super.onBackPressed();
         } else {
             slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-        }
+        }*/
     }
 
     @Override
     public void onPause(){
-        if(isMyServiceRunning(PlayerService.class)){
+        /*if(isMyServiceRunning(PlayerService.class)){
             if(Utils.showBubble(this))
                 startService(new Intent(this, PlayerService.class).setAction(Const.ACTION_BUBBLE_ON));
-        }
+        }*/
         super.onPause();
+
     }
     @Override
     public void onResume(){
-        if(isMyServiceRunning(PlayerService.class)){
+       /* if(isMyServiceRunning(PlayerService.class)){
             if(Utils.showBubble(this))
                 startService(new Intent(this, PlayerService.class).setAction(Const.ACTION_BUBBLE_OFF));
-        }
+        }*/
         super.onResume();
     }
 
     @Override
     public void onNewIntent(Intent intent){
-        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+        //slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
     }
 
     @Override

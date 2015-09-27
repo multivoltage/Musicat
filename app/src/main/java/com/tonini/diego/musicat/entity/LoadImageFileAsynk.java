@@ -50,7 +50,11 @@ public abstract class LoadImageFileAsynk extends AsyncTask<Void,Void,File> {
 
                 //Convert bitmap to byte array
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                yourSelectedImage.compress(Bitmap.CompressFormat.JPEG, quality /*ignored for PNG*/, bos);
+                if(quality==100)
+                    yourSelectedImage.compress(Bitmap.CompressFormat.PNG, quality /*ignored for PNG*/, bos);
+                else
+                    yourSelectedImage.compress(Bitmap.CompressFormat.JPEG, quality /*ignored for PNG*/, bos);
+
                 byte[] bitmapdata = bos.toByteArray();
 
                 //write the bytes in file

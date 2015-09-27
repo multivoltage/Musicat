@@ -103,7 +103,7 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
         if(on)
             try {
                 server.start();
-                Toast.makeText(this,"Open browser to: "+Utils.wifiIpAddress(this)+ "on port 8080",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Open browser to: "+Utils.wifiIpAddress(this)+ " on port 8080",Toast.LENGTH_LONG).show();
             } catch (Exception e) {
             }
         else

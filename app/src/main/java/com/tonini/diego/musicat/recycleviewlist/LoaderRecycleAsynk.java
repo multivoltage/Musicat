@@ -7,7 +7,10 @@ import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.AbsListView;
 
+import com.squareup.picasso.Picasso;
+import com.tonini.diego.musicat.MainActivity;
 import com.tonini.diego.musicat.entity.Album;
 import com.tonini.diego.musicat.entity.Artist;
 import com.tonini.diego.musicat.entity.Pair;
@@ -48,7 +51,7 @@ public class LoaderRecycleAsynk<I> extends AsyncTask<Void,Void,List<I>> {
 
 
 
-    public LoaderRecycleAsynk(Context context,Type type,FastScroller fastScroller,RecyclerView recyclerView){
+    public LoaderRecycleAsynk(final Context context,Type type,FastScroller fastScroller,RecyclerView recyclerView){
         mContext = context;
         dialog = new ProgressDialog(mContext);
         this.type = type;

@@ -48,9 +48,6 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
     private LinearLayout linearControlsHeader;
     private RelativeLayout relativeLayoutContainer;
 
-    private static final String KEY_CONTENT = "TestFragment:Content";
-    private String mContent = "???";
-
     public static SlideFragment newInstance() {
         SlideFragment fragment = new SlideFragment();
         return fragment;
@@ -63,7 +60,6 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
         getActivity().startService(new Intent(getActivity(), PlayerService.class).setAction(Const.ACTION_REQUEST_STATE_PLAYING));
         super.onResume();
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -218,13 +214,13 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
                     imgIsActiveRepeat.setVisibility(View.VISIBLE);
                 break;
             case R.id.tvGoWikiPedia :
-                try {
+                /*try {
                     String url = java.net.URLEncoder.encode("https://www.google.it/webhp?q=");//+currentTrack.getTitle(), "UTF-8").replace(" ", "+");
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(browserIntent);
                 } catch (UnsupportedEncodingException e) {
                     Log.e(MainActivity.TAG,e.toString());
-                };
+                };*/
                 break;
             case R.id.tvGoYoutTube :
                 String url = "http://m.youtube.com/results?q="+currentTrack.getTitle();
@@ -305,6 +301,7 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
                 imgPPHeader.setImageResource(R.mipmap.pause_minimal);
                 imgPP.setImageResource(R.mipmap.pause_minimal);
                 break;
+
         }
 
 
@@ -323,7 +320,7 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
     private void updateImage(Uri uri){
 
 
-        new LoadImageFileAsynk(new File(uri.toString()), getActivity(),50) {
+        /*new LoadImageFileAsynk(uri, getActivity(),50) {
 
             @Override
             protected void onPostExecute(File fileImage) {
@@ -336,7 +333,7 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
                         .placeholder(R.drawable.unknow_cover3)
                         .into(imageViewHeader);
             }
-        }.execute();
+        }.execute();*/
     }
 
     private void initColor(){

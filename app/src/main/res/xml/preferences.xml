@@ -45,14 +45,6 @@
             android:layout="@layout/custom_preferece_layout"
             android:persistent="true" />
 
-        <SwitchPreference
-            android:key="SHARED_PREF_KEY_SERVER"
-            android:title="Wer server"
-            android:summary="Abilitando questa funzione puoi ascoltare i brani da qualsiasi dispositivo wifi. Le porte/firewall  devono essere aperte"
-            android:defaultValue="false"
-            android:layout="@layout/custom_preferece_layout"
-            android:persistent="true" />
-
 
     </PreferenceCategory>
 

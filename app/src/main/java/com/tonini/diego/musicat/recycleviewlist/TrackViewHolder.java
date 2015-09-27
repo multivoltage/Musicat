@@ -1,34 +1,44 @@
 package com.tonini.diego.musicat.recycleviewlist;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
+import com.google.common.io.ByteStreams;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 import com.tonini.diego.musicat.Const;
 import com.tonini.diego.musicat.EditActivity;
 import com.tonini.diego.musicat.PlayerService;
 import com.tonini.diego.musicat.R;
 import com.tonini.diego.musicat.Utils;
-import com.tonini.diego.musicat.custom.RoundedTransformation;
-import com.tonini.diego.musicat.entity.LoadImageFileAsynk;
+import com.tonini.diego.musicat.entity.GoogleCoverLoader;
+import com.tonini.diego.musicat.entity.ImageWebAdapterDialog;
 import com.tonini.diego.musicat.entity.PlayList;
 import com.tonini.diego.musicat.entity.PlayListManager;
 import com.tonini.diego.musicat.entity.Track;
 import com.tonini.diego.musicat.entity.TrackFinder;
 import com.tonini.diego.musicat.events.EventClick;
 import com.tonini.diego.musicat.events.EventCrud;
+import com.tonini.diego.musicat.gcs.Item;
+
+import org.apache.http.Header;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -92,28 +102,8 @@ public class TrackViewHolder extends AGenericViewHolder<Track> {
                 load = true;
             }
             if(imageView !=null) {
-
-                // foor the moment I prefer load image from the mediastore.
-                // Only Albunm and Artist have got image
-                /*imageView.setImageResource(R.mipmap.unknow_cover);
-                new LoadImageFileAsynk(new File(track.getTrackUri().toString()), mContext,2) {
-                    @Override
-                    protected void onPostExecute(File fileImage) {{
-                            if(fileImage!= null && fileImage.exists()){
-                                Picasso.with(mContext)
-                                        .load(fileImage)
-                                        .transform(new RoundedTransformation(90, 10))
-                                        .resize(dimPixel, dimPixel)
-                                        .centerInside()
-                                        .placeholder(R.mipmap.unknow_cover)
-                                        .into(imageView);
-                            } else {
-                                imageView.setImageResource(R.mipmap.unknow_cover);
-                            }
-                        }
-                    }
-                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);*/
                 loadPicasso(imageView,track.getArtUri());
+
             }
         } else {
             if(firstTitle!=null)
@@ -142,17 +132,15 @@ public class TrackViewHolder extends AGenericViewHolder<Track> {
                 break;
             case R.id.shareTrack:           shareTrack(track);
                 break;
-            case R.id.editTrack:            editMetadata(track);
+            case R.id.downloadCoverArt:     downloadCover(track);
                 break;
         }
 
         Toast.makeText(mContext,menuItem.getTitle(),Toast.LENGTH_SHORT).show();
     }
 
-    private void editMetadata(Track track){
-        Intent intent = new Intent(mContext, EditActivity.class);
-        intent.putExtra(Const.KEY_EDIT_TRACK,track);
-        ((Activity)mContext).startActivityForResult(intent, Const.REQUEST_CODE_EDIT);
+    private void downloadCover(Track track){
+        new InitLIstViewAsynk(mContext,track.getTitle()).execute();
     }
 
     private void shareTrack(Track track){
@@ -225,6 +213,61 @@ public class TrackViewHolder extends AGenericViewHolder<Track> {
                     }
                 })
                 .show();
+    }
+
+    class InitLIstViewAsynk extends AsyncTask<Void,Void,List<Item>> {
+
+        private ProgressDialog dialog;
+        private String q;
+        private Context context;
+
+        public InitLIstViewAsynk(Context context, String query){
+            q = query;
+            this.context = context;
+            dialog = new ProgressDialog(this.context);
+        }
+        protected void onPreExecute() {
+            dialog.setMessage("Searching images");
+            dialog.show();
+        }
+        @Override
+        protected List<Item> doInBackground(Void... params) {
+
+            //return new ArrayList<Item>();
+            return new GoogleCoverLoader(q).getUrlImage();
+        }
+
+        @Override
+        protected void onPostExecute(final List<Item> list){
+            dialog.dismiss();
+            // set up listview i new material dialog
+            new MaterialDialog.Builder(mContext)
+                    .theme(Utils.getTheme(mContext)==Const.THEME_LIGHT ? Theme.LIGHT : Theme.DARK)
+                    .title("Chose one pictures")
+                    .adapter(new ImageWebAdapterDialog(mContext, R.layout.row_dialog_images, list), new MaterialDialog.ListCallback() {
+                        @Override
+                        public void onSelection(final MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+                            AsyncHttpClient client = new AsyncHttpClient();
+                            client.get(list.get(i).getLink(), new FileAsyncHttpResponseHandler(context) {
+                                @Override
+                                public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                                    //Snackbar.make(scrollView, "Error downloading image, check interner connection", Snackbar.LENGTH_LONG);
+                                    materialDialog.dismiss();
+                                }
+
+                                @Override
+                                public void onSuccess(int statusCode, Header[] headers, File file) {
+                                    //Log.i(EditActivity.TAG, "statusCode: " + statusCode);
+                                    if (statusCode == 200 && file.exists())
+                                        // we can set directly to imageView
+                                    materialDialog.dismiss();
+                                }
+
+                            });
+                        }
+                    }).show();
+        }
+
     }
 
 }
