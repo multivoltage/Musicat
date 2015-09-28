@@ -41,7 +41,6 @@ public class AlbumViewHolder extends AGenericViewHolder<Album> {
                 firstTitle.setTextColor(colorSecondary);
         }
 
-        setUpPopUpMenu(R.menu.popup_menu_album,album);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

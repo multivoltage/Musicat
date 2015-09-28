@@ -31,10 +31,12 @@ public class Const {
     public static final int REQUEST_CODE_EDIT = 47;
 
     // SETTING FRAGMENT
+    public static final String SHARED_PREF_KEY_SHOW_ART    = "SHARED_PREF_KEY_SHOW_ART";
     public static final String SHARED_PREF_KEY_SHAKE_PHONE = "SHARED_PREF_KEY_SHAKE_PHONE";
     public static final String SHARED_PREF_KEY_SHOW_BUBBLE = "SHARED_PREF_KEY_SHOW_BUBBLE";
     public static final String SHARED_PREF_KEY_SHOW_NOTICE = "SHARED_PREF_KEY_SHOW_CONTROLS";
-    public static final String SHARED_PREF_KEY_SERVER = "SHARED_PREF_KEY_SERVER";
+    public static final String SHARED_PREF_KEY_SERVER      = "SHARED_PREF_KEY_SERVER";
+
 
     // ACTIONS
     public static final String ACTION_PLAY_TRACK = "com.tonini.diego.musicat.action.PLAY_TRACK"; // used from adapter to play specific track selected

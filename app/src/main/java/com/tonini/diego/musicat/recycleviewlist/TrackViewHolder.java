@@ -1,11 +1,11 @@
 package com.tonini.diego.musicat.recycleviewlist;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Environment;
 import android.support.design.widget.Snackbar;
 import android.text.InputType;
 import android.util.Log;
@@ -18,9 +18,11 @@ import com.afollestad.materialdialogs.Theme;
 import com.google.common.io.ByteStreams;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
+import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.Mp3File;
 import com.squareup.picasso.Picasso;
 import com.tonini.diego.musicat.Const;
-import com.tonini.diego.musicat.EditActivity;
+import com.tonini.diego.musicat.MainActivity;
 import com.tonini.diego.musicat.PlayerService;
 import com.tonini.diego.musicat.R;
 import com.tonini.diego.musicat.Utils;
@@ -38,6 +40,7 @@ import org.apache.http.Header;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -50,6 +53,7 @@ public class TrackViewHolder extends AGenericViewHolder<Track> {
 
     int colorSecondary;
     boolean load = false;
+    private byte[]  arrayImageFile;
 
     public TrackViewHolder(View view, Context context) {
         super(view, context);
@@ -70,6 +74,7 @@ public class TrackViewHolder extends AGenericViewHolder<Track> {
                     // LOLLIPOP OR NEW
                     if (Build.VERSION.SDK_INT >= 21){
                         imageViewOver.setImageDrawable(mContext.getDrawable(R.drawable.ic_menu_moreoverflow_material));
+                        imageViewOver.getDrawable().setTint(mContext.getResources().getColor(android.R.color.darker_gray));
                     } else {
                         // PRE LOLLIPOP
                         imageViewOver.setImageResource(R.drawable.ic_menu_moreoverflow_holo_light);
@@ -128,20 +133,16 @@ public class TrackViewHolder extends AGenericViewHolder<Track> {
         switch (menuItem.getItemId()){
             case R.id.addToPlayListTrack :  addToPlayList(track);
                 break;
-            case R.id.addToQueueTrack:      addToQueue(track);
-                break;
+            /*case R.id.addToQueueTrack:      addToQueue(track);
+                break;*/
             case R.id.shareTrack:           shareTrack(track);
                 break;
-            case R.id.downloadCoverArt:     downloadCover(track);
+            case R.id.downloadCoverArt:     new FetchWebImagesAsynk(mContext,track).execute();
                 break;
         }
 
-        Toast.makeText(mContext,menuItem.getTitle(),Toast.LENGTH_SHORT).show();
     }
 
-    private void downloadCover(Track track){
-        new InitLIstViewAsynk(mContext,track.getTitle()).execute();
-    }
 
     private void shareTrack(Track track){
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -215,15 +216,18 @@ public class TrackViewHolder extends AGenericViewHolder<Track> {
                 .show();
     }
 
-    class InitLIstViewAsynk extends AsyncTask<Void,Void,List<Item>> {
+    class FetchWebImagesAsynk extends AsyncTask<Void,Void,List<Item>> {
 
         private ProgressDialog dialog;
         private String q;
         private Context context;
+        private Track track;
 
-        public InitLIstViewAsynk(Context context, String query){
-            q = query;
+        public FetchWebImagesAsynk(Context context, Track track){
+            // use title as query
+            q = track.getTitle();
             this.context = context;
+            this.track = track;
             dialog = new ProgressDialog(this.context);
         }
         protected void onPreExecute() {
@@ -232,8 +236,6 @@ public class TrackViewHolder extends AGenericViewHolder<Track> {
         }
         @Override
         protected List<Item> doInBackground(Void... params) {
-
-            //return new ArrayList<Item>();
             return new GoogleCoverLoader(q).getUrlImage();
         }
 
@@ -251,22 +253,80 @@ public class TrackViewHolder extends AGenericViewHolder<Track> {
                             client.get(list.get(i).getLink(), new FileAsyncHttpResponseHandler(context) {
                                 @Override
                                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                                    //Snackbar.make(scrollView, "Error downloading image, check interner connection", Snackbar.LENGTH_LONG);
+                                    Snackbar.make(itemView,"Error downloading image, check interner connection", Snackbar.LENGTH_LONG).show();
                                     materialDialog.dismiss();
                                 }
 
                                 @Override
                                 public void onSuccess(int statusCode, Header[] headers, File file) {
-                                    //Log.i(EditActivity.TAG, "statusCode: " + statusCode);
-                                    if (statusCode == 200 && file.exists())
-                                        // we can set directly to imageView
+                                    if (statusCode == 200 && file.exists()) {
+                                        Picasso.with(mContext)
+                                                .load(file)
+                                                .resize(dimPixel,dimPixel)
+                                                .into(imageView);
+
+                                        Log.i(MainActivity.TAG, "set image downloaded");
+                                        try {
+                                            arrayImageFile = ByteStreams.toByteArray(new FileInputStream(file));
+                                            saveNewMetadataMp3Agic(track);
+                                            Snackbar.make(itemView,"Edit Cover Ok",Snackbar.LENGTH_SHORT).show();
+                                        } catch (IOException e) {
+                                            Log.e(MainActivity.TAG, e.toString());
+                                            Snackbar.make(itemView, "Error while download image", Snackbar.LENGTH_LONG);
+                                        }
+                                    }
                                     materialDialog.dismiss();
                                 }
 
                             });
                         }
-                    }).show();
+                    })
+                    .show();
         }
+
+    }
+
+
+    private void saveNewMetadataMp3Agic(Track track){
+
+        try {
+
+            final String RETAGGED_EXTENSION = ".ret";
+            File originFile = new File(track.getTrackUri().toString());
+            File retaggedFile = new File(track.getTrackUri().toString()+RETAGGED_EXTENSION);
+
+            Mp3File mp3File = new Mp3File(new File(track.getTrackUri().toString()));
+            if(mp3File.hasId3v2Tag()){
+                ID3v2 tag = mp3File.getId3v2Tag();
+
+                // user want to update image also
+                if(arrayImageFile!=null){
+                    Log.i(MainActivity.TAG, "want to update image also with !null file");
+
+                    File folder = new File(Environment.getExternalStorageDirectory().getPath()+File.separator+"Musicat");
+                    if(!folder.exists())
+                        folder.mkdirs();
+
+                    File tempFile = new File(Environment.getExternalStorageDirectory().getPath()+File.separator+"Musicat"+File.separator+"try.jpg");
+                    tempFile.createNewFile();
+                    FileOutputStream fos = new FileOutputStream(tempFile.getAbsolutePath());
+                    fos.write(arrayImageFile);
+                    fos.close();
+                    tag.setAlbumImage(arrayImageFile, "image/jpeg");
+                } else {
+                    Log.i(MainActivity.TAG,"want to update image also with null file");
+                }
+                mp3File.save(retaggedFile.getAbsolutePath());
+                originFile.delete();
+                retaggedFile.renameTo(originFile);
+
+                Log.i(MainActivity.TAG, "set metadata on tag v2 !=null");
+            }
+
+        } catch (Exception e) {
+            Log.i(MainActivity.TAG,e.toString());
+        }
+
 
     }
 

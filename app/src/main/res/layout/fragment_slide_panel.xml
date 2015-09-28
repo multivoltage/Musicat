@@ -28,7 +28,7 @@
             android:id="@+id/profile_image_header"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/avicci_album"
+            android:src="@drawable/unknow_cover3"
             android:scaleType="fitXY"
             android:padding="8dp"
             android:layout_centerVertical="true"

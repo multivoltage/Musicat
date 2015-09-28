@@ -6,14 +6,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.tonini.diego.musicat.Const;
 import com.tonini.diego.musicat.PlayerService;
 import com.tonini.diego.musicat.R;
+import com.tonini.diego.musicat.Utils;
+import com.tonini.diego.musicat.custom.ColorSwitchPreference;
 
 public class MyPreferencesFragment extends PreferenceFragment {
 
@@ -27,6 +33,8 @@ public class MyPreferencesFragment extends PreferenceFragment {
     public static final String SHARED_PREF_KEY_COLOR_PRIMARY_DARK = "SHARED_PREF_KEY_COLOR_PRIMARY_DARK";
     public static final String SHARED_PREF_KEY_COLOR_SECONDARY = "SHARED_PREF_KEY_COLOR_SECONDARY";
     public static final String SHARED_PREF_KEY_TEXT_COLOR= "SHARED_PREF_KEY_TEXT_COLOR";
+
+    private View mView;
 
     OnAspectChaned mCallback;
     Context mContext;
@@ -46,7 +54,23 @@ public class MyPreferencesFragment extends PreferenceFragment {
         }
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        mView = view;
+        setUpTheme();
+        return view;
+    }
 
+
+    void setUpTheme(){
+        int theme = Utils.getTheme(getActivity());
+        if(theme==Const.THEME_DARK)
+            mView.setBackgroundColor(getResources().getColor(R.color.grey_700));
+        else
+            mView.setBackgroundColor(getResources().getColor(R.color.grey_100));
+
+    }
     @Override
     public void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -86,7 +110,9 @@ public class MyPreferencesFragment extends PreferenceFragment {
             } else if(key.equals(Const.KEY_PREF_SECONDARY_COLOR)){
                 mCallback.notifySecondaryColorSelected();
             } else if(key.equals(Const.KEY_PREF_THEME)){
+                setUpTheme();
                 mCallback.notifyThemeChanged();
+
             }
         }
     };

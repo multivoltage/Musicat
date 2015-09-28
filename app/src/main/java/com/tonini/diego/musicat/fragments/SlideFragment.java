@@ -319,8 +319,7 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
 
     private void updateImage(Uri uri){
 
-
-        /*new LoadImageFileAsynk(uri, getActivity(),50) {
+        new LoadImageFileAsynk(new File(uri.toString()), getActivity(),100) {
 
             @Override
             protected void onPostExecute(File fileImage) {
@@ -333,11 +332,6 @@ public class SlideFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
                         .placeholder(R.drawable.unknow_cover3)
                         .into(imageViewHeader);
             }
-        }.execute();*/
+        }.execute();
     }
-
-    private void initColor(){
-        // init pressed color for image and button
-    }
-
 }

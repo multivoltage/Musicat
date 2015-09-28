@@ -23,10 +23,13 @@ public class MediaReceiver extends BroadcastReceiver {
         if(action.equals(Intent.ACTION_MEDIA_BUTTON)){
             KeyEvent keyEvent = (KeyEvent) intent.getExtras().get(Intent.EXTRA_KEY_EVENT);
 
+
             if (keyEvent.getAction() != KeyEvent.ACTION_DOWN)
                 return;
 
+            Log.i(MainActivity.TAG,"keyEvent.getKeyCode(): "+keyEvent.getKeyCode());
             switch (keyEvent.getKeyCode()) {
+
 
                 case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
                     context.startService(new Intent(context,PlayerService.class).setAction(Const.ACTION_PLAY_PAUSE));

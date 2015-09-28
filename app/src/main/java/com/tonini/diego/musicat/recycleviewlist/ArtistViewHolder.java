@@ -66,6 +66,9 @@ public class ArtistViewHolder extends AGenericViewHolder<Artist> {
             if (secondTitle != null)
                 secondTitle.setText(String.valueOf(artist.getNumberAlbum())+" Albums");
 
+            if(imageViewOver!=null)
+                imageViewOver.setVisibility(View.GONE);
+
         } else {
             if(firstTitle!=null)
                 firstTitle.setTextColor(colorSecondary);

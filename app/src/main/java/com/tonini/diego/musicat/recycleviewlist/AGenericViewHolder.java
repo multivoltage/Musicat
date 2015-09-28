@@ -71,6 +71,7 @@ public abstract class AGenericViewHolder<I> extends RecyclerView.ViewHolder {
     public abstract void bindItem(I i, boolean isHeader);
 
     public void loadPicasso(final ImageView imageView, final Uri uri) {
+
         Picasso.with(mContext)
                 .load(uri)
                 .transform(new RoundedTransformation(90,10))

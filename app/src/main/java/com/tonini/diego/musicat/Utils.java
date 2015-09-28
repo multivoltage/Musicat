@@ -193,6 +193,9 @@ public class Utils {
     public static boolean canShowNotice(Context context){
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Const.SHARED_PREF_KEY_SHOW_NOTICE,true);
     }
+    public static boolean canShowArt(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Const.SHARED_PREF_KEY_SHOW_ART,true);
+    }
 
     public static boolean canSwitchOnServer(Context context){
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Const.SHARED_PREF_KEY_SERVER,true);

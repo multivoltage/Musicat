@@ -29,6 +29,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tonini.diego.musicat.Const;
 import com.tonini.diego.musicat.R;
 import com.tonini.diego.musicat.Utils;
 
@@ -88,6 +89,21 @@ public class ColorPickerPreference extends Preference{
     protected void onBindView(View view) {
         super.onBindView(view);
         mPreviewView = view.findViewById(R.id.calendar_color_view);
+
+        TextView viewTitle = (TextView) view.findViewById(android.R.id.title);
+        TextView summaary = (TextView) view.findViewById(android.R.id.summary);
+
+        int theme = Utils.getTheme(getContext());
+
+        viewTitle.setTextColor(Utils.getPrimaryColor(getContext()));
+        viewTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        if(theme== Const.THEME_DARK){
+            summaary.setTextColor(getContext().getResources().getColor(R.color.grey_100));
+        } else {
+            summaary.setTextColor(getContext().getResources().getColor(R.color.grey_800));
+        }
+
+
         setColorViewValue(mPreviewView, mValue);
     }
 

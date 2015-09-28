@@ -16,12 +16,8 @@
         android:title="contact me"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/action_setting"
-        android:title="setting"
-        app:showAsAction="never"/>
-
     <item android:id="@+id/action_git"
-        android:title="github"
+        android:title="git-hub"
         app:showAsAction="never"/>
 
 

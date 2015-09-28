@@ -47,6 +47,7 @@ public class PlayListFragment extends AbstracTrackFragment implements View.OnCli
         fabAddPlayList.setOnClickListener(this);
 
         l = new LoaderRecycleAsynk<PlayList>(getActivity(), LoaderRecycleAsynk.Type.PLAYLIST,fastScroller,r);
+        l.execute();
 
         return v;
     }
@@ -56,7 +57,7 @@ public class PlayListFragment extends AbstracTrackFragment implements View.OnCli
         getActivity().findViewById(R.id.fabBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //new LoaderRecycleAsynk<PlayList>(getActivity(), LoaderRecycleAsynk.Type.PLAYLIST, fastScroller, r).execute();
+                new LoaderRecycleAsynk<PlayList>(getActivity(), LoaderRecycleAsynk.Type.PLAYLIST, fastScroller, r).execute();
                 showBack = false;
                 getActivity().findViewById(R.id.fabBack).setVisibility(View.GONE);
             }

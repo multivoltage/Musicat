@@ -99,11 +99,11 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
     }
 
     private void switchOnServer(boolean on){
-        Log.i(MainActivity.TAG,"called switch "+on);
+        Log.i(MainActivity.TAG, "called switch " + on);
         if(on)
             try {
                 server.start();
-                Toast.makeText(this,"Open browser to: "+Utils.wifiIpAddress(this)+ " on port 8080",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Open browser to: "+Utils.wifiIpAddress(this)+ "on port 8080",Toast.LENGTH_LONG).show();
             } catch (Exception e) {
             }
         else
@@ -129,6 +129,8 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
 
         String action = intent.getAction();
         Log.i(MainActivity.TAG, "onStartCommand() with action: " + action);
+        boolean updateNotice = true;
+
         if(action!=null){
             switch (action) {
                 case Const.ACTION_PLAY_TRACK:
@@ -169,7 +171,7 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
                 case Const.ACTION_REQUEST_STATE_PLAYING:
                     responseEventPlayState();
                     break;
-                case Const.ACTION_DISMISS:
+                case Const.ACTION_DISMISS: updateNotice = false;
                     stopSelf();
                     break;
                 case Const.ACTION_SERVER_ON:
@@ -185,10 +187,25 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
 
                     break;
             }
-            updateNotification();
-            updateLauncher();
-            updateBubble();
+
+            if(updateNotice) {
+                updateNotification();
+                updateLauncher();
+                updateBubble();
+            }
         }
+
+        new CountDownTimer(10*1000,1000){
+            @Override
+            public void onTick(long l) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                //stopSelf();
+            }
+        }.start();
 
         return Service.START_NOT_STICKY;
     }
@@ -232,7 +249,7 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
         PendingIntent pendingPP        = PendingIntent.getBroadcast(getApplicationContext(), 0, ppIntent, 0);
         PendingIntent pendingNext      = PendingIntent.getBroadcast(getApplicationContext(), 0, nextIntent, 0);
         PendingIntent pendingPrev      = PendingIntent.getBroadcast(getApplicationContext(), 0, prevIntent, 0);
-        PendingIntent pendingDismiss   = PendingIntent.getBroadcast(getApplicationContext(), 0, dismissIntent,0);
+        PendingIntent pendingDismiss   = PendingIntent.getBroadcast(getApplicationContext(), 0, dismissIntent, 0);
 
         rm.setOnClickPendingIntent(R.id.imgNoticePlayPause, pendingPP);
         rm.setOnClickPendingIntent(R.id.imgNoticeNext, pendingNext);
@@ -268,9 +285,9 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
     private void updateNotification(){
         int theme = Utils.getTheme(getApplicationContext());
         if(isPlaying())
-            mNotification.contentView.setImageViewResource(R.id.imgNoticePlayPause,theme==Const.THEME_DARK ? R.mipmap.pause_minimal : R.mipmap.pause_minimal_dark);
+            mNotification.contentView.setImageViewResource(R.id.imgNoticePlayPause,/*theme==Const.THEME_DARK ? R.mipmap.pause_minimal : */R.mipmap.pause_minimal_dark);
         else
-            mNotification.contentView.setImageViewResource(R.id.imgNoticePlayPause,theme==Const.THEME_DARK ? R.mipmap.play_minimal : R.mipmap.play_minimal_dark);
+            mNotification.contentView.setImageViewResource(R.id.imgNoticePlayPause,/*theme==Const.THEME_DARK ? R.mipmap.play_minimal : */R.mipmap.play_minimal_dark);
 
         mNotification.contentView.setTextViewText(R.id.tvTitleNotice, getCurrentTrack().getTitle());
         mNotification.contentView.setTextViewText(R.id.tvArtistNotice, getCurrentTrack().getArtist());
@@ -285,15 +302,17 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
         mNotification.contentView.setTextColor(R.id.tvArtistNotice, getResources().getColor(R.color.primary_dark_material_light));
 
         mNotification.contentView.setImageViewResource(R.id.imgNoticeCover, R.mipmap.unknow_cover);
-        new LoadImageFileAsynk(new File(getCurrentTrack().getTrackUri().toString()), getApplicationContext(),50) {
+
+
+        new LoadImageFileAsynk(new File(getCurrentTrack().getTrackUri().toString()), getApplicationContext(), 50) {
             @Override
             protected void onPostExecute(File fileImage) {
-                if(fileImage!= null && fileImage.exists()){
+                if (fileImage != null && fileImage.exists()) {
                     float dp = 72;// Utils.convertDpToPixel(64,getApplicationContext());
                     Picasso.with(getApplicationContext())
                             .load(fileImage)
                             .resize((int) dp, (int) dp)
-                                    //.transform(new RoundedTransformation(90, 0))
+                            //.transform(new RoundedTransformation(90, 0))
                             .into(mNotification.contentView, R.id.imgNoticeCover, 15, mNotification);
                 }
             }
@@ -395,17 +414,19 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
                         .apply();
 
                 try {
-                    Mp3File mp3File = new Mp3File(new File(getCurrentTrack().getTrackUri().toString()));
-                    if(mp3File.hasId3v2Tag()){
-                        ID3v2 tag = mp3File.getId3v2Tag();
-                        // Log.i(EditActivity.TAG, "albumimage is " + tag.getAlbumImage() == null ? "null" : ("notnull" + " withmimetype: " + tag.getAlbumImageMimeType()));
-                        BitmapFactory.Options options = new BitmapFactory.Options();
-                        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                        Bitmap yourSelectedImage = BitmapFactory.decodeByteArray(tag.getAlbumImage(), 0, tag.getAlbumImage().length,options);
-                        if(yourSelectedImage!=null){
-                            mRemoteControlClientCompat.editMetadata(true)
-                                    .putBitmap(RemoteControlClientCompat.MetadataEditorCompat.METADATA_KEY_ARTWORK,yourSelectedImage)
-                                    .apply();
+                    if(Utils.canShowArt(getApplicationContext())){
+                        Mp3File mp3File = new Mp3File(new File(getCurrentTrack().getTrackUri().toString()));
+                        if(mp3File.hasId3v2Tag()){
+                            ID3v2 tag = mp3File.getId3v2Tag();
+                            // Log.i(EditActivity.TAG, "albumimage is " + tag.getAlbumImage() == null ? "null" : ("notnull" + " withmimetype: " + tag.getAlbumImageMimeType()));
+                            BitmapFactory.Options options = new BitmapFactory.Options();
+                            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                            Bitmap yourSelectedImage = BitmapFactory.decodeByteArray(tag.getAlbumImage(), 0, tag.getAlbumImage().length,options);
+                            if(yourSelectedImage!=null){
+                                mRemoteControlClientCompat.editMetadata(true)
+                                        .putBitmap(RemoteControlClientCompat.MetadataEditorCompat.METADATA_KEY_ARTWORK,yourSelectedImage)
+                                        .apply();
+                            }
                         }
                     }
                 } catch (Exception e) {

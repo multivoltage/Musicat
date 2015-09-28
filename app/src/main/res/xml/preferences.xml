@@ -2,26 +2,26 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory
+    <com.tonini.diego.musicat.custom.ColorPreferenceCategory
         android:title="Music Setting">
 
-        <CheckBoxPreference
+        <!--<CheckBoxPreference
             android:key="SHARED_PREF_KEY_SHOW_NOTICE"
             android:title="Mostra notifics"
             android:summary="Disabilitando questa funziona non verranna visualizzata la notifica"
             android:defaultValue="true"
             android:layout="@layout/custom_preferece_layout"
-            android:persistent="true"/>
+            android:persistent="true"/>-->
 
-        <CheckBoxPreference
+        <com.tonini.diego.musicat.custom.ColorCheckBoxPreference
             android:key="SHARED_PREF_KEY_SHOW_BUBBLE"
-            android:title="Mostra bolla"
+            android:title="Show bubble"
             android:summary="Disabilitando questa funziona non verrà visualizzata la bolla fluttuante "
             android:defaultValue="false"
             android:layout="@layout/custom_preferece_layout"
             android:persistent="true"/>
 
-        <CheckBoxPreference
+        <com.tonini.diego.musicat.custom.ColorCheckBoxPreference
             android:key="SHARED_PREF_KEY_SHOW_ART"
             android:title="Mostra cover"
             android:summary="Disabilitando questa funzione l' immagine dell album non sarà visualizzata nel lockscreen"
@@ -29,7 +29,7 @@
             android:layout="@layout/custom_preferece_layout"
             android:persistent="true" />
 
-        <CheckBoxPreference
+        <com.tonini.diego.musicat.custom.ColorCheckBoxPreference
             android:key="SHARED_PREF_KEY_JACK_INSERT"
             android:title="Pause jack-out"
             android:summary="Disabilitando questa funziona il brano non verrà interrotto se verranno disinserite le cuffie"
@@ -37,7 +37,7 @@
             android:layout="@layout/custom_preferece_layout"
             android:persistent="true"/>
 
-        <SwitchPreference
+        <com.tonini.diego.musicat.custom.ColorSwitchPreference
             android:key="SHARED_PREF_KEY_SHAKE_PHONE"
             android:title="Shake phone"
             android:summary="Abilitando questa funzione se viene effettuato uno shake del telefono verrà riprodotto il brano successivo"
@@ -46,14 +46,14 @@
             android:persistent="true" />
 
 
-    </PreferenceCategory>
+    </com.tonini.diego.musicat.custom.ColorPreferenceCategory>
 
 
-    <PreferenceCategory
+    <com.tonini.diego.musicat.custom.ColorPreferenceCategory
         android:title="Aspect">
 
         <!-- DEFAULT VALYE FOR THEME IS LIGHT -->
-        <ListPreference
+        <com.tonini.diego.musicat.custom.ColorListPreference
             android:title="Theme"
             android:summary="Choose between dark and light theme"
             android:key="KEY_PREF_THEME"
@@ -88,6 +88,6 @@
             app:cal_numColumns="4" />
 
 
-    </PreferenceCategory>
+    </com.tonini.diego.musicat.custom.ColorPreferenceCategory>
 
 </PreferenceScreen>

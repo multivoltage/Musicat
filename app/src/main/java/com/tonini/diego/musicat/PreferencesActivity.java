@@ -85,6 +85,8 @@ public class PreferencesActivity extends AppCompatActivity implements MyPreferen
 
     @Override
     public void notifyThemeChanged() {
+
+
         setResult(RESULT_EDIT_ASPECT_OK);
     }
 }

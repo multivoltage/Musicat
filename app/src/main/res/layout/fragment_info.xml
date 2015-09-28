@@ -1,0 +1,113 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/info_container"
+    tools:context="com.tonini.diego.musicat.fragments.AllSongFragment">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentTop="true">
+
+    <LinearLayout
+        android:id="@+id/containerL"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center|right">
+
+        <TextView
+            android:id="@+id/tvAppNameL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="App name"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tvVersionL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Version"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tvDeveloperL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Developer"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:textSize="20sp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/containerR"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center|left">
+
+        <TextView
+            android:id="@+id/tvAppNameR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Musicat"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tvVersionR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="x.x.x"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tvDeveloperR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Diego Tonini"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

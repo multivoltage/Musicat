@@ -30,7 +30,7 @@
                 android:id="@+id/imgCover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/avicii_art"/>
+                android:src="@drawable/unknow_cover3"/>
 
             <View
                 android:layout_width="match_parent"
