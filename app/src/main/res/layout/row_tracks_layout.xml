@@ -12,7 +12,7 @@
         android:maxHeight="64dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@mipmap/unknow_cover"
+        android:src="@mipmap/unknow"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tonini.diego.musicat.fragments.AllSongFragment">
+    tools:context="com.multivoltage.musicat.fragments.AllSongFragment">
 
     <!--<com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -21,7 +21,7 @@
         android:animateLayoutChanges="false"/>
 
 
-    <com.tonini.diego.musicat.recycleviewlist.FastScroller
+    <com.multivoltage.musicat.recycleviewlist.FastScroller
         android:id="@+id/fast_scroller"
         android:layout_width="15dp"
         android:layout_height="match_parent"

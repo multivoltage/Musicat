@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tonini.diego.musicat.fragments.SlideFragment"
+    tools:context="com.multivoltage.musicat.fragments.SlideFragment"
     android:id="@+id/relativeLayoutContainer">
 
     <ImageView
         android:id="@+id/profile_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/unknow_cover3"
+        android:src="@drawable/unknow_background"
         android:scaleType="centerCrop"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true" />
@@ -28,7 +28,7 @@
             android:id="@+id/profile_image_header"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/unknow_cover3"
+            android:src="@mipmap/unknow"
             android:scaleType="fitXY"
             android:padding="8dp"
             android:layout_centerVertical="true"
@@ -51,7 +51,7 @@
 
             <TextView
                 android:id="@+id/tvTitleHeader"
-                android:text="questo è un titlo lungo e e deve scorrere"
+                android:text="if you see this there is a bug"
                 android:layout_width="match_parent"
                 android:textSize="16sp"
                 android:ellipsize="marquee"

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Musicat</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="search_title">st</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
+    <string-array name="themes_entries">
+        <item>@string/theme_light</item>
+        <item>@string/theme_dark</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>10</item> <!-- 10 IS LIGHT -->
+        <item>20</item> <!-- 20 IS DARK  -->
+    </string-array>
+    <string name="title_activity_edit">Main2Activity</string>
+
+    <string-array name="items_option_image">
+        <item>Gallery</item>
+        <item>Web</item>
+    </string-array>
+
+    <string name="track_id">UA-67132612-1</string>
+
+
+    <string name="playlist_create_err">Mi scuso. Ti prego di contattarmi cosi posso risolvere il bug invece di ricevere un voto negativo</string>
+    <string name="playlist_created_ok">creata</string>
+    <string name="playlist_delete_ok">eliminata</string>
+    <string name="create_new_playlist">Crea nuova Playlist</string>
+    <string name="insert_name_playlist">Inserisci nome</string>
+    <string name="load_tracks_loading">"Caricamento brani..."</string>
+    <string name="delete_playlist">Eliminare Playlist</string>
+    <string name="confirm">Connferma</string>
+    <string name="back">Indietro</string>
+    <string name="added">Aggiunta</string>
+    <string name="listen_this_song_share">Ascolta questa canzone !</string>
+    <string name="searching_images">caricamento immagini</string>
+    <string name="chose_one_pictures">Sceglie un\' immagine</string>
+    <string name="error_fetch_cov">Errore ngenerale. Controlla la connessione a internet</string>
+    <string name="edit_cover_ok">Modifica cover OK</string>
+
+    <string name="all_songs">Tutti i brani</string>
+    <string name="artists">Artisti</string>
+
+    <string name="available">Disponibile a:</string>
+    <string name="run">Avvia</string>
+    <string name="stop">Ferma</string>
+    <string name="do_nothing">Indietro</string>
+    <string name="nome_app">Nome app</string>
+    <string name="developer">Sviluppatore</string>
+    <string name="rate_me">votami</string>
+    <string name="contact_me">contattami</string>
+
+    <string name="popup_add_to_playlist">Aggiungi a playlist</string>
+    <string name="popup_share">Condividi</string>
+    <string name="popup_delete_playlist">Elimina playlist</string>
+
+    <string name="licence_icon">alcune icone sono di proprietà di icon8 che consente la distruzuzioni anche a fini commerciali</string>
+
+</resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tonini.diego.musicat" >
+    package="com.multivoltage.musicat" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,7 +14,7 @@
 
 
     <application
-        android:name="com.tonini.diego.musicat.MyApplication"
+        android:name="com.multivoltage.musicat.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -45,7 +45,7 @@
         </activity>-->
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.multivoltage.musicat.MainActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
             android:launchMode="standard"
@@ -62,14 +62,14 @@
         </activity>
 
         <service
-            android:name=".PlayerService"
+            android:name="com.multivoltage.musicat.PlayerService"
             android:exported="false"
             android:icon="@mipmap/ic_launcher"
             android:stopWithTask="false" >
         </service>
 
         <receiver
-            android:name=".MediaReceiver"
+            android:name="com.multivoltage.musicat.MediaReceiver"
             android:enabled="true"
             android:exported="true" >
             <intent-filter>
@@ -78,13 +78,8 @@
         </receiver>
 
         <activity
-            android:name=".PreferencesActivity"
+            android:name="com.multivoltage.musicat.PreferencesActivity"
             android:label="@string/title_activity_setting" >
-        </activity>
-        <activity
-            android:name=".EditActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:label="@string/title_activity_edit" >
         </activity>
 
         <!-- Enable background dispatching to improve delivery on non-Google Play devices -->
@@ -113,7 +108,7 @@
             android:name="com.google.android.gms.analytics.CampaignTrackingService"
             android:enabled="true"/>
 
-        <receiver android:name=".entity.IncomingCallReceiver">
+        <receiver android:name="com.multivoltage.musicat.entity.IncomingCallReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>

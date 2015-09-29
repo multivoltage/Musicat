@@ -3,111 +3,324 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/info_container"
-    tools:context="com.tonini.diego.musicat.fragments.AllSongFragment">
-
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentTop="true">
+    android:background="@android:color/background_light"
+    tools:context="com.multivoltage.musicat.fragments.AllSongFragment">
 
     <LinearLayout
-        android:id="@+id/containerL"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:gravity="center|right">
-
-        <TextView
-            android:id="@+id/tvAppNameL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="App name"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="5dp"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:id="@+id/tvVersionL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Version"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="5dp"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:id="@+id/tvDeveloperL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Developer"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="5dp"
-            android:textSize="20sp"/>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/containerR"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center|left">
-
-        <TextView
-            android:id="@+id/tvAppNameR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Musicat"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="15dp"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:id="@+id/tvVersionR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="x.x.x"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="15dp"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:id="@+id/tvDeveloperR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Diego Tonini"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="15dp"
-            android:textSize="20sp"/>
-
-    </LinearLayout>
-
-
-</LinearLayout>
-
-    <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"
-        android:layout_marginTop="30dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:orientation="vertical"
+        android:gravity="center"
+        android:id="@+id/linearLayout2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginTop="30dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true">
+
+            <LinearLayout
+                android:id="@+id/containerL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center|right">
+
+                <TextView
+                    android:id="@+id/tvAppNameL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nome_app"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@android:color/primary_text_light"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tvVersionL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Version"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@android:color/primary_text_light"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tvDeveloperL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/developer"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@android:color/primary_text_light"
+                    android:textSize="20sp"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/containerR"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:textColor="@android:color/primary_text_light"
+                android:gravity="center|left">
+
+                <TextView
+                    android:id="@+id/tvAppNameR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Musicat"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@android:color/primary_text_light"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tvVersionR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="x.x.x"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@android:color/primary_text_light"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tvDeveloperR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Diego Tonini"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@android:color/primary_text_light"
+                    android:textSize="20sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout4">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_500"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/licence_icon"
+            android:textColor="@android:color/primary_text_light"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/aboutLicenseIcon8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="LICENSE"
+            android:onClick="openBrowser"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/primary_text_light"
+            android:layout_gravity="center"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_500"/>
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Libraries"
+                android:textColor="@android:color/primary_text_light"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/aboutAsynkHttp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="android-async-http"
+                android:onClick="openBrowser"
+                android:textColor="@android:color/primary_text_light"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/aboutObservableScrolView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:onClick="openBrowser"
+                android:textColor="@android:color/primary_text_light"
+                android:text="Android-ObservableScrollView"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/aboutCirlceImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="CircleImageView"
+                android:onClick="openBrowser"
+                android:textColor="@android:color/primary_text_light"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/aboutFloatinButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:onClick="openBrowser"
+                android:text="FloatingActionButton"
+                android:textColor="@android:color/primary_text_light"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/aboutSuperSLIM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="SuperSLiM"
+                android:onClick="openBrowser"
+                android:textColor="@android:color/primary_text_light"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/aboutSlidePanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:onClick="openBrowser"
+                android:text="AndroidSlidingUpPanel"
+                android:textColor="@android:color/primary_text_light"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/aboutPicasso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Picasso"
+                android:onClick="openBrowser"
+                android:textColor="@android:color/primary_text_light"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/aboutEventBus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="EventBus"
+                android:onClick="openBrowser"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/aboutOkHttp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="okhttp"
+                android:onClick="openBrowser"
+                android:textColor="@android:color/primary_text_light"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/aboutMaterialDialogs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="material-dialogs"
+                android:onClick="openBrowser"
+                android:textColor="@android:color/primary_text_light"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/aboutMaterialDrawer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="MaterialDrawer"
+                android:onClick="openBrowser"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/aboutNano"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="nanohttpd"
+                android:onClick="openBrowser"
+                android:textColor="@android:color/primary_text_light"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/aboutMp3agic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="mp3agic"
+                android:onClick="openBrowser"
+                android:textColor="@android:color/primary_text_light"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>-->
+
 </RelativeLayout>

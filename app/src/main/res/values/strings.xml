@@ -24,4 +24,41 @@
     </string-array>
 
     <string name="track_id">UA-67132612-1</string>
+
+
+    <string name="playlist_create_err">I \'m sorry. Please contact me to fix error instead put negative review</string>
+    <string name="playlist_created_ok">created</string>
+    <string name="playlist_delete_ok">deleted</string>
+    <string name="create_new_playlist">Create new Playlist</string>
+    <string name="insert_name_playlist">Insert name</string>
+    <string name="load_tracks_loading">"Load tracks..."</string>
+    <string name="delete_playlist">Delete Playlist</string>
+    <string name="confirm">Confirm</string>
+    <string name="back">Back</string>
+    <string name="added">Added</string>
+    <string name="listen_this_song_share">Listen this song man!</string>
+    <string name="searching_images">searching images</string>
+    <string name="chose_one_pictures">Chose one pictures</string>
+    <string name="error_fetch_cov">General error, check interner connection</string>
+    <string name="edit_cover_ok">Edit cover OK</string>
+
+    <string name="all_songs">All Tracks</string>
+    <string name="artists">Artist</string>
+
+    <string name="available">Available on:</string>
+    <string name="run">Run</string>
+    <string name="stop">Stop</string>
+    <string name="do_nothing">do nothing</string>
+    <string name="nome_app">App name</string>
+    <string name="developer">Developer</string>
+    <string name="rate_me">rate me</string>
+    <string name="contact_me">contact me</string>
+
+
+    <string name="popup_add_to_playlist">Aggiungi a playlist</string>
+    <string name="popup_share">Condividi</string>
+    <string name="popup_delete_playlist">Delete playlist</string>
+
+    <string name="licence_icon">some icons are the property of icon8 that allow commercial distribution</string>
+
 </resources>

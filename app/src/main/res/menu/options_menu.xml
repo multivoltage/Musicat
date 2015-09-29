@@ -9,11 +9,11 @@
         app:actionViewClass="android.support.v7.widget.SearchView" />
 
     <item android:id="@+id/action_rate"
-        android:title="rate me"
+        android:title="@string/rate_me"
         app:showAsAction="never"/>
 
     <item android:id="@+id/action_contact"
-        android:title="contact me"
+        android:title="@string/contact_me"
         app:showAsAction="never"/>
 
     <item android:id="@+id/action_git"

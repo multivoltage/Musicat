@@ -7,14 +7,14 @@
 
     <item
         android:id="@+id/addToPlayListTrack"
-        android:title="Add to PlayList"/>
+        android:title="@string/popup_add_to_playlist"/>
 
     <item
         android:id="@+id/shareTrack"
-        android:title="Share"/>
+        android:title="@string/popup_share"/>
 
 
     <item
-        android:id="@+id/downloadCoverArt"
-        android:title="Download Cover"/>
+        android:id="@+id/fetchArt"
+        android:title="Find Cover"/>
 </menu>

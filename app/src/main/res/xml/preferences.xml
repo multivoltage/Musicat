@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.tonini.diego.musicat.custom.ColorPreferenceCategory
+    <com.multivoltage.musicat.custom.ColorPreferenceCategory
         android:title="Music Setting">
 
         <!--<CheckBoxPreference
@@ -13,7 +13,7 @@
             android:layout="@layout/custom_preferece_layout"
             android:persistent="true"/>-->
 
-        <com.tonini.diego.musicat.custom.ColorCheckBoxPreference
+        <com.multivoltage.musicat.custom.ColorCheckBoxPreference
             android:key="SHARED_PREF_KEY_SHOW_BUBBLE"
             android:title="Show bubble"
             android:summary="Disabilitando questa funziona non verrà visualizzata la bolla fluttuante "
@@ -21,7 +21,7 @@
             android:layout="@layout/custom_preferece_layout"
             android:persistent="true"/>
 
-        <com.tonini.diego.musicat.custom.ColorCheckBoxPreference
+        <com.multivoltage.musicat.custom.ColorCheckBoxPreference
             android:key="SHARED_PREF_KEY_SHOW_ART"
             android:title="Mostra cover"
             android:summary="Disabilitando questa funzione l' immagine dell album non sarà visualizzata nel lockscreen"
@@ -29,7 +29,7 @@
             android:layout="@layout/custom_preferece_layout"
             android:persistent="true" />
 
-        <com.tonini.diego.musicat.custom.ColorCheckBoxPreference
+        <com.multivoltage.musicat.custom.ColorCheckBoxPreference
             android:key="SHARED_PREF_KEY_JACK_INSERT"
             android:title="Pause jack-out"
             android:summary="Disabilitando questa funziona il brano non verrà interrotto se verranno disinserite le cuffie"
@@ -37,7 +37,7 @@
             android:layout="@layout/custom_preferece_layout"
             android:persistent="true"/>
 
-        <com.tonini.diego.musicat.custom.ColorSwitchPreference
+        <com.multivoltage.musicat.custom.ColorSwitchPreference
             android:key="SHARED_PREF_KEY_SHAKE_PHONE"
             android:title="Shake phone"
             android:summary="Abilitando questa funzione se viene effettuato uno shake del telefono verrà riprodotto il brano successivo"
@@ -46,14 +46,14 @@
             android:persistent="true" />
 
 
-    </com.tonini.diego.musicat.custom.ColorPreferenceCategory>
+    </com.multivoltage.musicat.custom.ColorPreferenceCategory>
 
 
-    <com.tonini.diego.musicat.custom.ColorPreferenceCategory
+    <com.multivoltage.musicat.custom.ColorPreferenceCategory
         android:title="Aspect">
 
         <!-- DEFAULT VALYE FOR THEME IS LIGHT -->
-        <com.tonini.diego.musicat.custom.ColorListPreference
+        <com.multivoltage.musicat.custom.ColorListPreference
             android:title="Theme"
             android:summary="Choose between dark and light theme"
             android:key="KEY_PREF_THEME"
@@ -63,7 +63,7 @@
             android:entryValues="@array/theme_values"
             android:entries="@array/themes_entries" />
 
-        <com.tonini.diego.musicat.dashclockpicker.ColorPickerPreference
+        <com.multivoltage.musicat.dashclockpicker.ColorPickerPreference
             android:defaultValue="@color/ColorPrimary"
             android:key="KEY_PREF_PRIMARY_COLOR"
             android:layout="@layout/custom_preferece_layout"
@@ -75,7 +75,7 @@
             app:cal_itemLayout="@layout/calendar_grid_item_color"
             app:cal_numColumns="4" />
 
-        <com.tonini.diego.musicat.dashclockpicker.ColorPickerPreference
+        <com.multivoltage.musicat.dashclockpicker.ColorPickerPreference
             android:defaultValue="@color/ColorSecondary"
             android:layout="@layout/custom_preferece_layout"
             android:key="KEY_PREF_SECONDARY_COLOR"
@@ -88,6 +88,6 @@
             app:cal_numColumns="4" />
 
 
-    </com.tonini.diego.musicat.custom.ColorPreferenceCategory>
+    </com.multivoltage.musicat.custom.ColorPreferenceCategory>
 
 </PreferenceScreen>

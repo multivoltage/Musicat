@@ -3,9 +3,9 @@
 
     <item
         android:id="@+id/deletePlayList"
-        android:title="Delete playlist"/>
+        android:title="@string/popup_delete_playlist"/>
 
     <item
         android:id="@+id/sharePlayList"
-        android:title="Share"/>
+        android:title="@string/popup_share"/>
 </menu>
