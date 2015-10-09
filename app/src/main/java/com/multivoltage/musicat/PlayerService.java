@@ -611,6 +611,11 @@ public class PlayerService extends Service implements MusicFocusable, BasicPlaye
                         public void onSwipeTop() {
                             startService(new Intent(getApplicationContext(), PlayerService.class).setAction(Const.ACTION_PLAY_PAUSE));
                         }
+
+                        @Override
+                        public void onSwipeBottom() {
+                            startService(new Intent(getApplicationContext(), PlayerService.class).setAction(Const.ACTION_PREV));
+                        }
                     });
                     break;
 
